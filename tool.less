@@ -1,0 +1,67 @@
+/* It is a less file. */
+._center(){margin-left: auto; margin-right: auto;}
+
+//同时设置行高和高度
+.lineh(@h){ height:@h; line-height: @h; }
+.line_height(@h){.lineh(@h)};
+.line-height(@h){.lineh(@h)};
+
+//设置补间间隔
+.dura(@time:330ms){
+	transition-duration:@time;
+}
+
+
+//正常和鼠标划过颜色变化 通过颜色设置
+.hover_cl(@color:#ccc, @color_hover:#fff) when(iscolor(@color_hover)){
+	color: @color;
+	&:hover{color: @color_hover;}
+}
+
+//正常和鼠标划过颜色变化 通过亮度设置
+.hover_cl(@color:#ccc, @lighten:12%) when not(iscolor(@lighten)){
+	color: @color;
+	&:hover{color: lighten(@color,@lighten);}
+}
+
+//正常和鼠标划过颜色变化 通过颜色设置
+.hover_bg(@color:#ccc, @color_hover:#fff) when(iscolor(@color_hover)){
+	background-color: @color;
+	&:hover{background-color: @color_hover;}
+}
+
+//正常和鼠标划过颜色变化 通过亮度设置
+.hover_bg(@color:#ccc, @lighten:12%) when not(iscolor(@lighten)){
+	background-color: @color;
+	&:hover{background-color:lighten(@color,@lighten); }
+}
+
+
+//横向padding
+.padding_h(@value:auto){padding-left: @value; padding-right: @value;}
+//纵向padding
+.padding_v(@value:auto){padding-top: @value; padding-bottom: @value;}
+//横向margin
+.margin_h(@value:auto){margin-left: @value; margin-right: @value;}
+//纵向margin
+.margin_v(@value:auto){margin-top: @value; margin-bottom: @value;}
+
+
+//block尺寸，同时设置长宽
+._size(@width:auto, @height:auto) when not(@height = auto){ width: @width; height:@height;}
+._size(@width:auto, @height:auto) when(@height = auto){ width: @width; height:@width;}
+
+//去掉链接下划线
+.un_(){text-decoration: none;}
+
+
+.clear{font-size: 0; height: 0; width: 0; clear: both;}
+._icon(){background-repeat: no-repeat; background-position: 50% 50%;}
+
+
+.bc{background-color: #f60;};
+
+//发光效果
+._glow(@color:#fff, @blur:15px){
+	box-shadow: @color 0 0 @blur;
+}
