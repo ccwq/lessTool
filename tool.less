@@ -60,3 +60,7 @@
 ._glow(@color:#fff, @blur:15px){
 	box-shadow: @color 0 0 @blur;
 }
+
+//反向尺寸，实际值为100%宽度减去 pix
+._rev_width(@pix:0){ width: calc(~"100% - @{pix}"); }
+._rev_height(@pix:0){ height: calc(~"100% - @{pix}"); }
