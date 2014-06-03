@@ -11,6 +11,11 @@
 	transition-duration:@time;
 }
 
+//透明度调整
+._alpha(@val:80){
+	opacity: @val * 0.01;
+	filter: alpha(opacity=@val);
+}
 
 //正常和鼠标划过颜色变化 通过颜色设置
 .hover_cl(@color:#ccc, @color_hover:#fff) when(iscolor(@color_hover)){
@@ -64,3 +69,19 @@
 //反向尺寸，实际值为100%宽度减去 pix
 ._rev_width(@pix:0){ width: calc(~"100% - @{pix}"); }
 ._rev_height(@pix:0){ height: calc(~"100% - @{pix}"); }
+
+.noSelect(){
+	-moz-user-select: none; /*火狐*/
+	-webkit-user-select: none;  /*webkit浏览器*/
+	-ms-user-select: none;   /*IE10*/
+	-khtml-user-select: none; /*早期浏览器*/
+	user-select: none;
+}
+
+
+//设置div为inline block 兼容恶心ie67
+.div_inline_block{
+	display: inline-block;
+	&{ *display: inline;}
+}
+
