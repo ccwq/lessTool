@@ -1,4 +1,3 @@
-/* It is a less file. */
 ._center(){margin-left: auto; margin-right: auto;}
 
 //同时设置行高和高度
@@ -70,6 +69,9 @@
 ._rev_width(@pix:0){ width: calc(~"100% - @{pix}"); }
 ._rev_height(@pix:0){ height: calc(~"100% - @{pix}"); }
 
+
+
+//-------------------------------------------------工具
 .noSelect(){
 	-moz-user-select: none; /*火狐*/
 	-webkit-user-select: none;  /*webkit浏览器*/
@@ -78,10 +80,33 @@
 	user-select: none;
 }
 
+//重置ul li
+.plainUl(){
+	list-style: none;
+	li{ margin: 0;}
+}
+
+//使inline-blcok（并兼容旧版浏览器）
+.iblock(){display: inline-block; &{ *display: inline;}}
 
 
+//工具class //请在需要引入的地方写 .toolClass;
+.toolClass(){
+	.clear{font-size: 0; height: 0; width: 0; clear: both;}
+	.center{margin-left:auto; margin-right:auto;}
 
-//clear;
+	.inblock,
+	.iblock,
+	.div_inline_block
+	{
+		.iblock();
+	}
+	.plainUl{ .plainUl(); }
+	.noSelect{.noSelect();}
+}
+
+
+//reset;
 .reset(){
 	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6,
 	p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
@@ -99,17 +124,9 @@
 	ol, ul{ list-style: none; }
 	blockquote, q {quotes: none;}
 	blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
-
-	//ccwq
-	.clear{font-size: 0; height: 0; width: 0; clear: both;}
-
-	//设置div为inline block 兼容恶心ie67
-	.div_inline_block{
-		.inblock;
-	}
-
-	.inblock{
-		display: inline-block;
-		&{ *display: inline;}
-	}
 }
+
+
+
+
+
