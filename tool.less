@@ -89,6 +89,23 @@
 //使inline-blcok（并兼容旧版浏览器）
 .iblock(){display: inline-block; &{ *display: inline;}}
 
+//左右上下居中。 通过left margin-left top margin-top结合
+.hv_center(@w;@h;@pos){
+	top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w; position: @pos;
+}
+
+.hv_center(@w;@h){
+	top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w;
+}
+
+
+//雅黑字体
+.yahei(){
+	font-family: "微软雅黑" "黑体" "新宋体";
+}
+
+
+
 
 //工具class //请在需要引入的地方写 .toolClass;
 .toolClass(){
@@ -103,6 +120,7 @@
 	}
 	.plainUl{ .plainUl(); }
 	.noSelect{.noSelect();}
+	.yahei{.yahei();}
 }
 
 
