@@ -105,22 +105,23 @@
 }
 
 
+//铺满到容器（一般用户fiex或者absolute定位）
+.expandin(){
+	width:100%; height:100%; top:0; left:0;
+}
+
+
 
 
 //工具class //请在需要引入的地方写 .toolClass;
 .toolClass(){
 	.clear{font-size: 0; height: 0; width: 0; clear: both;}
 	.center{margin-left:auto; margin-right:auto;}
-
-	.inblock,
-	.iblock,
-	.div_inline_block
-	{
-		.iblock();
-	}
+	.inblock,.iblock,.div_inline_block{.iblock();}
 	.plainUl{ .plainUl(); }
 	.noSelect{.noSelect();}
 	.yahei{.yahei();}
+	.expandin{.expandin();}
 }
 
 
