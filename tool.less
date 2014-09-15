@@ -81,10 +81,7 @@
 }
 
 //重置ul li
-.plainUl(){
-	list-style: none;
-	li{ margin: 0;}
-}
+.plainUl(){ list-style: none; li{ margin: 0;} }
 
 //使inline-blcok（并兼容旧版浏览器）
 .iblock(){display: inline-block; &{ *display: inline;}; vertical-align: top;}
@@ -98,32 +95,29 @@
 	top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w;
 }
 
+//居中
+.center(){margin-left: auto; margin-right: auto;}
 
 //雅黑字体
 .yahei(){
 	font-family: "微软雅黑" "黑体" "新宋体";
 }
 
+//字符串截取
+.txcut(){ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 //铺满到容器（一般用户fiex或者absolute定位）
-.expandin(){
-	width:100%; height:100%; top:0; left:0;
-}
+.expandin(){ width:100%; height:100%; top:0; left:0; }
 
-//清除
-.clear(){font-size: 0; height: 0; width: 0; clear: both;}
-
-//block居中
-.center(){margin-left:auto; margin-right:auto;}
-._center(){.center}
 
 
 
 //工具class //请在需要引入的地方写 .toolClass;
 .toolClass(){
-	.clear{.clear;};
-	.center{.center;};
-	.inblock,.iblock,.div_inline_block{.iblock();}
+	.clear{font-size: 0; height: 0; width: 0; clear: both;}
+	.center{.center();}
+	.txcut{.txcut();}
+	.inblock, .iblock, .div_inline_block{ .iblock(); }
 	.plainUl{ .plainUl(); }
 	.noSelect{.noSelect();}
 	.yahei{.yahei();}
@@ -133,13 +127,10 @@
 
 //reset;
 .reset(){
-	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6,
-	p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
-	img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,
-	dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
-	tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed,
-	figure, figcaption, footer, header, hgroup, menu, nav, output,
-	ruby, section, summary,time, mark, audio, video {
+	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
+	img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
+	tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section,
+	summary,time, mark, audio, video {
 		margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;
 	}
 
