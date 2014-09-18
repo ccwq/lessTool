@@ -113,10 +113,14 @@
 
 //transform缩写形式
 .tsform(@val){
-	-webkit-transform:@val;
-	-ms-transform:@val;
-	transform:@val;
+	-webkit-transform:@val; -ms-transform:@val; transform:@val;
 }
+
+//缩放，参数2表示其他属性配置
+.ts_scale(@scaleVal:1, @val:""){
+	.tsform(~"scaleX(@{scaleVal}) scaleY(@{scaleVal}) @{val}");
+}
+
 
 
 //reset;
