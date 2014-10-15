@@ -191,3 +191,36 @@
 }
 
 
+
+//形成三角
+.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=left){
+	.______triangle_common(@size,@dir,@color,@blankColor);
+	.______triangle_revdir(right,@color);
+}
+
+.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=right){
+	.______triangle_common(@size,@dir,@color,@blankColor);
+	.______triangle_revdir(left,@color);
+}
+
+.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=top){
+	.______triangle_common(@size,@dir,@color,@blankColor);
+	.______triangle_revdir(bottom,@color);
+}
+
+.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=bottom){
+	.______triangle_common(@size,@dir,@color,@blankColor);
+	.______triangle_revdir(top,@color);
+}
+
+//三角私有方法
+.______triangle_revdir(@rev_dir,@color){
+	border-@{rev_dir}-color:@color;
+}
+.______triangle_common(@size,@dir:left,@color:#08c,@blankColor:transparent){
+	border: @size solid @blankColor;
+	border-@{dir}-width: 0;
+	._size(0);
+}
+
+//----形成三角
