@@ -213,6 +213,15 @@
 	.______triangle_revdir(top,@color);
 }
 
+//形成斜三角(45整数倍三角)
+.triangle45(@size,@dira:left,@dirb:bottom,@color:#08c,@blankColor:transparent){
+	border: @blankColor solid @size/2;
+	border-@{dira}-color:@color;
+	border-@{dirb}-color:@color;
+	font-size: 0;
+	._size(0);
+}
+
 //三角私有方法
 .______triangle_revdir(@rev_dir,@color){
 	border-@{rev_dir}-color:@color;
