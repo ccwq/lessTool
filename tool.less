@@ -113,14 +113,33 @@
 
 //transform缩写形式
 .tsform(@val){
-	-webkit-transform:@val; -ms-transform:@val; transform:@val;
+	-webkit-transform+_:@val; -ms-transform+_:@val; transform+_:@val;
 }
+
+
 
 //缩放，参数2表示其他属性配置
 .ts_scale(@scaleVal:1, @val:""){
 	.tsform(~"scaleX(@{scaleVal}) scaleY(@{scaleVal}) @{val}");
 }
 
+
+//旋转
+.ts_rotate(@ang){
+	@deg:convert(@ang,"deg");
+	.tsform(rotate(@deg));
+}
+
+//兼容ie的旋转（ie必须设置尺寸，不然无法绕中心旋转）
+.ts_rotate(@ang,@width,@height){
+	.ts_rotate(@ang);
+	.ieRotate(unit(convert(@ang,"deg")),@width,@height);
+}
+
+//兼容ie并且同时设置尺寸
+.ts_rotate(@ang,@size){
+	.ts_rotate(@ang,@size,@size);
+}
 
 
 //reset;
@@ -138,9 +157,36 @@
 	ol, ul{ list-style: none; }
 	blockquote, q {quotes: none;}
 	blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
+
+	i{font-style: normal;}
 }
 
 
+//默认变量
+@cell:12px;
+@fsize:12px;
 
+
+//ie旋转
+.ieRotate(@ang,@width,@height){
+	@deg:@ang;
+	@sin:sin(@deg);
+	@cos:cos(@deg);
+	@fsin:-@sin;
+	@fcos:-@cos;
+
+	@w:unit(@width);
+	@h:unit(@height);
+	@dx:-w/2*@cos+g/2*@sin+w/2;
+	@dy:-w/2*@sin - g/2*@cos+h/2;
+
+	filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
+	width: @width;
+	height: @height;
+}
+
+.isRotate(@ang,@size){
+	.ieRotate(@ang, @size, @size);
+}
 
 
