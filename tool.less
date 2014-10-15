@@ -45,9 +45,9 @@
 .margin_v(@value:auto){margin-top: @value; margin-bottom: @value;}
 
 
-//block尺寸，同时设置长宽
-._size(@width:auto, @height:auto) when not(@height = auto){ width: @width; height:@height;}
-._size(@width:auto, @height:auto) when(@height = auto){ width: @width; height:@width;}
+//设置尺寸
+._size(@width,@height){ width: @width; height:@height;}
+._size(@size){._size(@size,@size)};
 
 
 ._icon(){background-repeat: no-repeat; background-position: 50% 50%;}
@@ -185,8 +185,11 @@
 	height: @height;
 }
 
+//简写形式
 .isRotate(@ang,@size){
 	.ieRotate(@ang, @size, @size);
 }
+
+
 
 
