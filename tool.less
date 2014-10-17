@@ -178,8 +178,8 @@
 
 	@w:unit(@width);
 	@h:unit(@height);
-	@dx:-w/2*@cos+g/2*@sin+w/2;
-	@dy:-w/2*@sin - g/2*@cos+h/2;
+	@dx:-@w/2*@cos+@h/2*@sin+@w/2;
+	@dy:-@w/2*@sin - @h/2*@cos+@h/2;
 
 	filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
 	width: @width;
@@ -189,6 +189,22 @@
 .isRotate(@ang,@size){
 	.ieRotate(@ang, @size, @size);
 }
+
+
+
+
+
+.__triangle(@size,@revdir:left,@color:#08c,@blankColor:transparent){
+	border: @blankColor solid @size/2;
+	font-size: 0;
+	border-@{revdir}-color:@color;
+	._size(0);
+}
+
+
+
+
+
 
 
 
@@ -221,6 +237,7 @@
 	font-size: 0;
 	._size(0);
 }
+
 
 //三角私有方法
 .______triangle_revdir(@rev_dir,@color){
