@@ -1,0 +1,42 @@
+@import "css/tool";
+
+
+//测试旋转
+.ro{
+	.ts_rotate(66deg,90px);
+	background: #08c;
+}
+
+.roo{
+	.ts_rotate(60deg,90px, 120px);
+}
+
+.ro,.roo{
+	position: absolute;
+	top: 50%; left: 50%;
+}
+
+
+.ib{ display: inline-block; vertical-align: middle;}
+
+//形成正方向三角
+.tr1{
+	.triangle(40px,left);
+}
+.tr2{
+	.triangle(40px,top);
+}
+
+.tr3{
+	.triangle(40px,right);
+}
+
+.tr4{
+	.triangle(40px,bottom);
+}
+
+
+//形成45度方向三角
+.tr45a{.triangle45(50px,right,top)}
+.tr45b{.triangle45(50px,bottom,left)}
+
