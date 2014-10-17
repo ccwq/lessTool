@@ -73,7 +73,10 @@
 .planeUl(){ list-style: none; li{ margin: 0;} }
 
 //使inline-blcok（并兼容旧版浏览器）
-.iblock(){display: inline-block; &{ *display: inline;}; vertical-align: top;}
+.iblock(){
+	display: inline-block;  vertical-align: top;
+	*zoom:1; *display: inline;//ie
+}
 
 //左右上下居中。 通过left margin-left top margin-top结合
 .hv_center(@w;@h;@pos){
