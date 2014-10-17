@@ -87,6 +87,14 @@
 	top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w;
 }
 
+.vcenter(@h,@vOffset:0px){
+	top: 50%; position: absolute; margin-top: -@h/2 + @vOffset;
+}
+
+.hcenter(@w,@hOffset:0px){
+	left: 50%; position: absolute; margin-left: -@w/2 + @hOffset;
+};
+
 //居中
 .center(){margin-left: auto; margin-right: auto;}
 
