@@ -193,11 +193,11 @@
 	@dy:-@w/2*@sin - @h/2*@cos+@h/2;
 
 	filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
-	width: @width;
-	height: @height;
+	//width: @width;
+	//height: @height;
 }
 
-.isRotate(@ang,@size){
+.ieRotate(@ang,@size){
 	.ieRotate(@ang, @size, @size);
 }
 
@@ -245,6 +245,7 @@
 	border: @blankColor solid @size/2;
 	border-@{dira}-color:@color;
 	border-@{dirb}-color:@color;
+	line-height: 0;
 	font-size: 0;
 	._size(0);
 }
@@ -257,7 +258,7 @@
 .______triangle_common(@size,@dir:left,@color:#08c,@blankColor:transparent){
 	border: @size solid @blankColor;
 	border-@{dir}-width: 0;
-	._size(0);
+	._size(0); font-size: 0; line-height: 0; display: inline-block;
 }
 
 //----形成三角
