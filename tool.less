@@ -1,5 +1,6 @@
 //同时设置行高和高度
 .lineh(@h){ height:@h; line-height: @h; }
+.lineh(@lh,@h){ height:@h; line-height: @lh; }
 .line_height(@h){.lineh(@h)};
 .line-height(@h){.lineh(@h)};
 
@@ -120,6 +121,10 @@
 	.noSelect{.noSelect();}
 	.yahei{.yahei();}
 	.expandin{.expandin();}
+	.icon12{._icon(12px)}
+	.icon16{._icon(16px)}
+	.icon24{._icon(24px)}
+	.icon36{._icon(36px)}
 }
 
 //transform缩写形式
@@ -262,3 +267,7 @@
 }
 
 //----形成三角
+
+._icon(@size, @src:none){
+	display: inline-block; vertical-align: top; background: none no-repeat 50% 50%; ._size(@size); margin-right: @size/3;
+}
