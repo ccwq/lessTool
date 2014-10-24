@@ -47,11 +47,11 @@
 
 
 //block尺寸，同时设置长宽
-._size(@width:auto, @height:auto) when not(@height = auto){ width: @width; height:@height;}
-._size(@width:auto, @height:auto) when(@height = auto){ width: @width; height:@width;}
+._size(@size){._size(@size,@size)}
+._size(@width,@height){ width: @width; height:@height; }
 
 
-._icon(){background-repeat: no-repeat; background-position: 50% 50%;}
+
 
 //发光效果
 ._glow(@color:#fff, @blur:15px){
@@ -271,3 +271,4 @@
 ._icon(@size, @src:none){
 	display: inline-block; vertical-align: top; background: none no-repeat 50% 50%; ._size(@size); margin-right: @size/3;
 }
+._icon(){background-repeat: no-repeat; background-position: 50% 50%;}
