@@ -125,6 +125,7 @@
 	.icon16{._icon(16px)}
 	.icon24{._icon(24px)}
 	.icon36{._icon(36px)}
+	.v_hidden{.v_hidden();}
 }
 
 //transform缩写形式
@@ -269,6 +270,28 @@
 //----形成三角
 
 ._icon(@size, @src:none){
-	display: inline-block; vertical-align: top; background: none no-repeat 50% 50%; ._size(@size); margin-right: @size/3;
+	._icon(@size, @size, @src);
+}
+._icon(@width,@height,@src){
+	display: inline-block; vertical-align: top; background: url(@src) no-repeat 50% 50%; ._size(@width,@height);
 }
 ._icon(){background-repeat: no-repeat; background-position: 50% 50%;}
+
+
+
+
+
+//半透明背景，兼容ie
+.bgcolor_alpha(@bgcolor: rgba(0,0,0,.5)){
+	color:#fff;
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= argb(@bgcolor), endColorstr=argb(@bgcolor));
+	background-color:@bgcolor;
+}
+
+
+// 不可见，但是仍可以加载
+.v_hidden(){
+	position: absolute;
+	clip:rect(1px 1px 1px 1px);//ie6/7
+	clip:rect(1px, 1px, 1px, 1px);//standard
+}
