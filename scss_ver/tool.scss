@@ -1,0 +1,202 @@
+@charset "utf-8";
+@import "cutils";
+
+//同时设置行高和高度
+@mixin lineh($size...){
+	$leng:length($size);
+	@if($leng==1){
+		line-height: $size;
+		height: $size;
+	}@else{
+		line-height: nth($size,0);
+		height: nth($size,1);
+	}
+}
+
+@mixin line_height($size...){@include lineh($size)};
+
+
+//block尺寸，同时设置长宽
+@mixin _size($size...){
+	$leng:length($size);
+	@if($leng==1){
+		width:$size; height: $size;
+	}@else{
+		width: nth($size,1); height: nth($size,2);
+	}
+}
+
+
+//设置补间间隔
+@mixin  dura($time:330ms){ transition-duration:$time; }
+
+//透明度调整
+@mixin  _alpha($val:80){ opacity: $val * 0.01; filter: alpha(opacity=$val); }
+
+
+
+
+//横向padding
+@mixin  padding_h($value:auto){padding-left: $value; padding-right: $value;}
+//纵向padding
+@mixin  padding_v($value:auto){padding-top: $value; padding-bottom: $value;}
+//横向margin
+@mixin  margin_h($value:auto){margin-left: $value; margin-right: $value;}
+//纵向margin
+@mixin  margin_v($value:auto){margin-top: $value; margin-bottom: $value;}
+
+
+
+
+
+
+@mixin  _icon(){background-repeat: no-repeat; background-position: 50% 50%;}
+
+//发光效果
+@mixin  _glow($color:#fff, $blur:15px){
+	box-shadow: $color 0 0 $blur;
+}
+
+
+
+
+//-------------------------------------------------工具
+@mixin  noSelect(){
+	-moz-user-select: none; /*火狐*/
+	-webkit-user-select: none;  /*webkit浏览器*/
+	-ms-user-select: none;   /*IE10*/
+	-khtml-user-select: none; /*早期浏览器*/
+	user-select: none;
+}
+
+//重置ul li
+@mixin  planeUl(){ list-style: none; li{ margin: 0;} }
+
+//使inline-blcok（并兼容旧版浏览器）
+@mixin  iblock(){
+	display: inline-block;  vertical-align: top;
+	*zoom:1; *display: inline;//ie
+}
+
+//左右上下居中。 通过left margin-left top margin-top结合
+@mixin  vcenter($h,$vOffset:0px){
+	top: 50%; position: absolute; margin-top: -$h/2 + $vOffset;
+}
+
+@mixin  hcenter($w,$hOffset:0px){
+	left: 50%; position: absolute; margin-left: -$w/2 + $hOffset;
+};
+
+//居中
+@mixin  center(){margin-left: auto; margin-right: auto;}
+
+//雅黑字体
+@mixin  yahei(){ font-family: "微软雅黑" "黑体" "新宋体"; }
+
+//字符串截取
+@mixin  txcut(){ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+//铺满到容器（一般用户fiex或者absolute定位）
+@mixin  expandin(){ width:100%; height:100%; top:0; left:0; }
+
+//kill gap;适用于消除inline-block元素之间的的间距，请设置于inline
+@mixin  font_resize($size:12px){ font-size: 0; >*{font-size: $size;} }
+
+//工具class //请在需要引入的地方写 .toolClass;
+@mixin  toolClass(){
+	.clear{font-size: 0; height: 0; width: 0; clear: both;}
+	.center{@include center();}
+	.txcut{@include txcut();}
+	.inblock, .iblock, .div_inline_block{ @include iblock(); }
+	.planeUl{@include planeUl(); }
+	.noSelect{@include noSelect();}
+	.yahei{@include yahei();}
+	.expandin{@include expandin();}
+	.icon12{@include _icon(12px)}
+	.icon16{@include _icon(16px)}
+	.icon24{@include _icon(24px)}
+	.icon36{@include _icon(36px)}
+}
+
+//transform缩写形式
+@mixin  tsform($val){
+	-webkit-transform:$val; -ms-transform:$val; transform:$val;
+}
+
+
+
+//缩放，参数2表示其他属性配置
+@mixin  ts_scale($scaleVal:1, $val:""){
+	@include tsform(scaleX(#{$scaleVal}) scaleY(#{$scaleVal}) #{$val});
+}
+
+
+/*
+//ie旋转
+//$ang只支持deg
+@mixin  ieRotate($ang,$width,$height:null){
+	@if($height == null){
+		$height:$width;
+	}
+
+	$deg:pi_rad()*2 - convert($ang,1rad);          //ie角度正好和w3c旋转相反
+	$sin:sin($deg);
+	$cos:cos($deg);
+	$fsin:-$sin;
+	$fcos:-$cos;
+
+	$w:unit($width);
+	$h:unit($height);
+	$dx:-$w/2*$cos+$h/2*$sin+$w/2;
+	$dy:-$w/2*$sin - $h/2*$cos+$h/2;
+
+	filter:progid:DXImageTransform.Microsoft.Matrix(Dx=$dx, Dy=$dy,M11=$cos,M12=$sin,M21=$fsin,M22=$cos,sizingMethod="auto expand");
+}
+
+
+
+//兼容ie的旋转（ie必须设置尺寸，不然无法绕中心旋转）
+@mixin  ts_rotate($ang,$width:null,$height:null){
+	$deg:convert($ang,1deg);
+	@include tsform(rotate($deg));
+
+	@if($height==null){
+		$height:$width;
+	}
+
+	@if($width!=null){
+		@include ieRotate(trim_unit(convert($ang,1deg)),$width,$height);
+	}
+}*/
+
+
+@mixin  ts_rotate($ang,$width:null,$height:null){
+	$deg:convert($ang,1deg);
+	@include tsform(rotate($deg));
+}
+
+
+
+//reset;
+@mixin  reset(){
+	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
+	img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
+	tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section,
+	summary,time, mark, audio, video {
+		margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;
+	}
+
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block;}
+	body {line-height: 1; font-size: 12px;}
+	ol, ul{ list-style: none; }
+	blockquote, q {quotes: none;}
+	blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
+
+	i{font-style: normal;}
+}
+
+
+//默认变量
+$cell:12px;
+$fsize:12px;

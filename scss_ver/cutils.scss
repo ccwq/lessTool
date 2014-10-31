@@ -1,0 +1,172 @@
+@charset "utf-8";
+
+//三角函数
+$pi: 3.14159265359;
+
+@function pi(){
+	@return $pi;
+}
+
+
+@function pi_rad(){
+	@return 3.14159265359rad;
+}
+
+
+
+//三角函数
+@function pow($base, $exp) {
+	$value: $base;
+	@if ($exp>1){
+		@for $i from 2 through $exp{
+			$value: $value * $base;
+		}
+	}
+	@if $exp<1{
+		@for $i from 0 through -$exp{
+			$value: $value / $base;
+		}
+	}
+	@return $value;
+}
+
+@function fact($val) {
+	$value: 1;
+	@if $val > 0{
+		@for $i from 1 through $number{
+			$value: $value * $i;
+		}
+	}
+}
+
+@function sin($angle, $degrees: false) {
+	$sin: 0;
+	@if $degrees{
+		$degrees: $degrees / 180 * $pi;
+	}
+	@for $n from 1 through 10{
+		$sin: $sin + ( pow(-1,n) / fact(2n+1) ) * pow($angle,(2n+1));
+	}
+	@return $sin;
+}
+
+@function cos($angle, $degrees: false) {
+	$cos: 0;
+	@if $degrees{
+		$degrees: $degrees / 180 * $pi;
+	}
+	@for $n from 1 through 10{
+		$cos: $cos + ( pow(-1,n) / fact(2n) ) * pow($angle,2n);
+	}
+	@return $cos;
+}
+
+@function tan($angle, $degrees: false) {
+	@if $degrees{
+		$degrees: $degrees / 180 * $pi;
+	}
+	$tan: sin($angle) / cos($angle);
+	@return $tan
+}
+
+
+
+
+
+@mixin  __triangle($size,$revdir:left,$color:#08c,$blankColor:transparent){
+	border: $blankColor solid $size/2;
+	font-size: 0;
+	border-#{$revdir}-color:$color;
+	@include _size(0);
+}
+
+
+
+
+//反方向map
+$dire_rev_map: (left:right, top: bottom, right: left, bottom: top);
+
+//形成三角
+@mixin  triangle($size,$dir:left,$color:#08c,$blankColor:transparent) {
+	$rev_dir:unquote(map-get($dire_rev_map,$dir));
+	border: $size solid $blankColor;
+	border-#{$dir}-width: 0;
+	@include _size(0); font-size: 0; line-height: 0; display: inline-block;
+	border-#{$rev_dir}-color:$color;
+}
+
+
+//形成斜三角(45整数倍三角)
+@mixin  triangle45($size,$dira:left,$dirb:bottom,$color:#08c,$blankColor:transparent){
+	border: $blankColor solid $size/2;
+	border-#{$dira}-color:$color;
+	border-#{$dirb}-color:$color;
+	line-height: 0;
+	font-size: 0;
+	@include _size(0);
+}
+
+
+@mixin  _icon($size, $src:none){
+	display: inline-block; vertical-align: top; background: none no-repeat 50% 50%; @include _size($size); margin-right: $size/3;
+}
+
+
+//---------------------------------------------------
+
+
+
+
+//切割单位，保留数字
+//去掉一个值的单位，如12px => 12
+//eg. strip-units(12px) => 12
+@function trim_unit($number){
+	@return $number / ($number * 0 + 1);
+}
+
+
+//变更单位
+//$unit 1px转换为px，1deg转换为deg，如此类推
+@function change_unit($num,$unit:1px){
+	$uni:unit($num);
+	$n:$num;
+	@if($uni != ""){
+		$n:trim_unit($n);
+	}
+	@return $n * $unit;
+}
+
+
+//角度和弧度互相切换，
+@function ang_switch($ang){
+	@if(unit($ang) == deg){
+		@return change_unit($ang, 1rad) * $pi/(180);
+	}@else if(unit($ang) == rad){
+		@return change_unit($ang, 1deg) * 180/$pi;
+	}@else{
+		@return $ang;
+	}
+
+	@return 0;
+}
+
+
+//单位转换
+@function convert($num,$tar_unit_1){
+	$src_unit:unit($num);
+	$tar_unit:unit($tar_unit_1);
+	@if($src_unit == $tar_unit){
+		@return $num;
+	}
+
+	//处理角度
+	@if(null != str_index(deg_rad,$tar_unit)){
+		@if($src_unit!=$tar_unit){
+			@return ang_switch($num);
+		}@else{
+			@return $num;
+		}
+	}
+
+	@return trim_unit($num) * $tar_unit_1;
+}
