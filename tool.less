@@ -203,47 +203,23 @@
 	//height: @height;
 }
 
+//ie 的旋转
 .ieRotate(@ang,@size){
 	.ieRotate(@ang, @size, @size);
 }
 
 
 
-
-
-.__triangle(@size,@revdir:left,@color:#08c,@blankColor:transparent){
-	border: @blankColor solid @size/2;
-	font-size: 0;
-	border-@{revdir}-color:@color;
-	._size(0);
-}
-
-
-
-
-
-
-
-
 //形成三角
-.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=left){
-	.______triangle_common(@size,@dir,@color,@blankColor);
-	.______triangle_revdir(right,@color);
-}
+.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent){
+	border: @size solid @blankColor; border-@{dir}-width: 0; ._size(0); font-size: 0; line-height: 0; display: inline-block;
 
-.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=right){
-	.______triangle_common(@size,@dir,@color,@blankColor);
-	.______triangle_revdir(left,@color);
-}
+	@rev_dir:~`(function(){
+		var dir = ({left:"right", top:"bottom", right:"left", bottom:"top"})["@{dir}"];
+		return dir || "left";
+	})()`;
 
-.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=top){
-	.______triangle_common(@size,@dir,@color,@blankColor);
-	.______triangle_revdir(bottom,@color);
-}
-
-.triangle(@size,@dir:left,@color:#08c,@blankColor:transparent) when(@dir=bottom){
-	.______triangle_common(@size,@dir,@color,@blankColor);
-	.______triangle_revdir(top,@color);
+	border-@{rev_dir}-color:@color;
 }
 
 //形成斜三角(45整数倍三角)
@@ -254,17 +230,6 @@
 	line-height: 0;
 	font-size: 0;
 	._size(0);
-}
-
-
-//三角私有方法
-.______triangle_revdir(@rev_dir,@color){
-	border-@{rev_dir}-color:@color;
-}
-.______triangle_common(@size,@dir:left,@color:#08c,@blankColor:transparent){
-	border: @size solid @blankColor;
-	border-@{dir}-width: 0;
-	._size(0); font-size: 0; line-height: 0; display: inline-block;
 }
 
 //----形成三角
@@ -294,4 +259,98 @@
 	position: absolute;
 	clip:rect(1px 1px 1px 1px);//ie6/7
 	clip:rect(1px, 1px, 1px, 1px);//standard
+}
+
+
+
+
+//用来生一个宽度序列
+//参数1 @main_w有三种形式
+//  形式1:1000px              表示总宽度为1000,单元格间距为0
+//  形式2:1000px 12px         表示总宽度为1000,单元格间距为12px，无两边空白
+//  形式3:1000px _12px        表示总宽度为1000,单元格间距为12px，两边有空白
+//参数2 @rest 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
+//举例 .row1{.gen_grid(1000px 10px,60px,100px,90px,88px, 180px); >*{.iblock};}
+.gen_grid(@main_w__gap,@rest...){
+	@leng:length(@rest);
+
+	//分析第一参数
+	@p_list:`(function(index){
+		index = index || 0;
+		var para = "@{main_w__gap}".replace(/\[|\]|,/g,"");
+		var leng = @{leng};
+		var ar = para.split(" ");
+		ar[1] = ar[1] || "0px";
+		var main_w = ar[0];
+		var gap_w=ar[1].replace(/^_|\-/,"");
+		if(/^\_/.test(ar[1])){
+			leng = leng + 2;
+		}else{
+			leng = leng;
+		}
+		var resultList = [main_w, gap_w,leng];
+		return resultList[index-1];
+	})`;
+
+	//提取参数1的定义
+	@main_w:~`@{p_list}(1)`;
+	@gap_w:~`@{p_list}(2)`;
+	@gap_num:~`@{p_list}(3)`;
+
+
+	//计算最有一个单元格宽度
+	@last_w:~`(function(){
+		var arg = eval("@{rest}".replace(/px/g,""));
+		var main_w = parseInt("@{main_w}");
+
+		var gap_num = @{gap_num};
+		var gap_w = parseInt("@{gap_w}");
+		var w=0;
+		arg.map(function(n){
+			w+=n;
+		});
+		return (main_w - w - gap_num*gap_w) + "px";
+	})()`;
+
+
+
+
+	width:~`(function(){
+		var main_w = parseInt("@{main_w}");
+		var gap_num = @{gap_num};
+		var leng = @{leng};
+		var gap_w = parseInt("@{gap_w}");
+
+
+		if(gap_num>leng){
+			return (main_w - gap_w) + "px; padding-left:" + gap_w + "px";
+		}else{
+			return main_w + "px";
+		}
+	})()`;
+
+
+	//定义循环
+	.gen_grid_loop(@times,@paras) when(@times >0){
+		.gen_grid_loop(@times - 1, @paras);
+		.cell-@{times}{
+			width: extract(@paras,@times);
+			margin-right: @gap_w;
+		}
+	}
+
+	//生成1-(n-1)的宽度
+	.gen_grid_loop(@leng , @rest);
+
+	//生成n的宽度
+	@leng_p1:@leng+1;
+	.cell-last,.cell-@{leng_p1}{
+		width:@last_w;
+	}
+
+
+	//对单元格的一些公共设置
+	>*{
+		&:extend(.iblock);
+	}
 }
