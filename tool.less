@@ -107,6 +107,7 @@
 
 //铺满到容器（一般用户fiex或者absolute定位）
 .expandin(){ width:100%; height:100%; top:0; left:0; }
+.expandin(@pos){position:@pos; .expandin(); }
 
 //kill gap;适用于消除inline-block元素之间的的间距，请设置于inline
 .font_resize(@size:12px){ font-size: 0; >*{font-size: @size;} }
@@ -169,7 +170,7 @@
 	}
 
 	/* HTML5 display-role reset for older browsers */
-	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block;}
+	article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block;}
 	body {line-height: 1; font-size: 12px;}
 	ol, ul{ list-style: none; }
 	blockquote, q {quotes: none;}
