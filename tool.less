@@ -117,7 +117,6 @@
 	.clear{font-size: 0; height: 0; width: 0; clear: both;}
 	.center{.center();}
 	.txcut{.txcut();}
-	.inblock, .iblock, .div_inline_block{ .iblock(); }
 	.planeUl{ .planeUl(); }
 	.noSelect{.noSelect();}
 	.yahei{.yahei();}
@@ -128,6 +127,9 @@
 	.icon36{._icon(36px)}
 	.v_hidden{.v_hidden();}
 }
+
+.inblock, .iblock, .div_inline_block{ .iblock(); }
+
 
 //transform缩写形式
 .tsform(@val){
@@ -164,7 +166,7 @@
 .reset(){
 	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
 	img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
-	tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section,
+	tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section,
 	summary,time, mark, audio, video {
 		margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;
 	}
@@ -213,7 +215,7 @@
 
 //形成三角
 .triangle(@size,@dir:left,@color:#08c,@blankColor:transparent){
-	border: @size solid @blankColor; border-@{dir}-width: 0; ._size(0); font-size: 0; line-height: 0; display: inline-block;
+	border: @size solid @blankColor; border-@{dir}-width: 0; ._size(0); font-size: 0; line-height: 0; &:extend(.iblock); vertical-align: middle;
 
 	@rev_dir:~`(function(){
 		var dir = ({left:"right", top:"bottom", right:"left", bottom:"top"})["@{dir}"];
@@ -349,9 +351,11 @@
 		width:@last_w;
 	}
 
+	//消除间隔
+	font-size: 0;
 
 	//对单元格的一些公共设置
 	>*{
-		&:extend(.iblock);
+		&:extend(.iblock); font-size: @fsize;
 	}
 }
