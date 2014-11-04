@@ -241,12 +241,11 @@
 	._icon(@size, @size, @src);
 }
 ._icon(@width,@height,@src){
-	display: inline-block; vertical-align: top; background: url(@src) no-repeat 50% 50%; ._size(@width,@height);
+	@url:~`"@{src}"=="none"?"none":("url("+src+")")`;
+	background-image: @url; ._size(@width,@height);
+	&:extend(.__icon); &:extend(.iblock);
 }
-._icon(){background-repeat: no-repeat; background-position: 50% 50%;}
-
-
-
+.__icon{background-repeat: no-repeat; background-position: 50% 50%;}
 
 
 //半透明背景，兼容ie
