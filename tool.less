@@ -241,7 +241,8 @@
 	._icon(@size, @size, @src);
 }
 ._icon(@width,@height,@src){
-	@url:~`"@{src}"=="none"?"none":("url("+ "@{src}" +")")`;
+	@ssrc:e(@src);
+	@url:~`"@{ssrc}"=="none"?"none":("url("+ "@{ssrc}" +")")`;
 	background-image: @url; ._size(@width,@height);
 	&:extend(.__icon); &:extend(.iblock);
 }
