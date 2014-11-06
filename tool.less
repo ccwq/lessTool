@@ -1,3 +1,22 @@
+//向全局对象注入对象或者变量
+@__inject:`(function(){
+	var top = this;
+	var temp_top = top;
+	top.bindvar = function(key,value){
+		var arr = key.split(".");
+		var le = arr.length;
+		arr.map(function(subkey,i){
+
+			if(i==le-1){
+				temp_top[subkey] = value;
+			}
+			if(!temp_top[subkey]){
+				temp_top = temp_top[subkey] = {};
+			}
+		});
+	}
+})()`;
+
 //同时设置行高和高度
 .lineh(@h){ height:@h; line-height: @h; }
 .lineh(@lh,@h){ height:@h; line-height: @lh; }
@@ -300,7 +319,7 @@
 	@gap_num:~`@{p_list}(3)`;
 
 
-	//计算最有一个单元格宽度
+	//计算最后一个单元格宽度
 	@last_w:~`(function(){
 		var arg = eval("@{rest}".replace(/px/g,""));
 		var main_w = parseInt("@{main_w}");
@@ -311,7 +330,10 @@
 		arg.map(function(n){
 			w+=n;
 		});
-		return (main_w - w - gap_num*gap_w) + "px";
+
+		var lstw = (main_w - w - gap_num*gap_w) + "px";
+		bindvar("gd.lastw",lstw);
+		return lstw;
 	})()`;
 
 
