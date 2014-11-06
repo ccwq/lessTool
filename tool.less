@@ -1,8 +1,9 @@
 //向全局对象注入对象或者变量
 @__inject:`(function(){
 	var top = this;
-	var temp_top = top;
+	var temp_top;
 	top.bindvar = function(key,value){
+		temp_top = top;
 		var arr = key.split(".");
 		var le = arr.length;
 		arr.map(function(subkey,i){
@@ -15,6 +16,8 @@
 			}
 		});
 	}
+
+
 })()`;
 
 //同时设置行高和高度
@@ -331,7 +334,7 @@
 			w+=n;
 		});
 
-		var lstw = (main_w - w - gap_num*gap_w) + "px";
+		var lstw = (main_w - w - gap_num*gap_w);
 		bindvar("gd.lastw",lstw);
 		return lstw;
 	})()`;
@@ -369,7 +372,7 @@
 	//生成n的宽度
 	@leng_p1:@leng+1;
 	.cell-last,.cell-@{leng_p1}{
-		width:@last_w;
+		width:unit(@last_w,px);
 	}
 
 	//消除间隔
