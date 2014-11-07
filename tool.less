@@ -330,6 +330,10 @@
 		var gap_num = @{gap_num};
 		var gap_w = parseInt("@{gap_w}");
 		var w=0;
+
+		//只有两列的情况
+		if(arg.length === undefined) arg = [arg];
+
 		arg.map(function(n){
 			w+=n;
 		});
@@ -360,7 +364,7 @@
 	//定义循环
 	.gen_grid_loop(@times,@paras) when(@times >0){
 		.gen_grid_loop(@times - 1, @paras);
-		.cell-@{times}{
+		>.cell-@{times}{
 			width: extract(@paras,@times);
 			margin-right: @gap_w;
 		}
@@ -371,7 +375,7 @@
 
 	//生成n的宽度
 	@leng_p1:@leng+1;
-	.cell-last,.cell-@{leng_p1}{
+	>.cell-last,>.cell-@{leng_p1}{
 		width:unit(@last_w,px);
 	}
 
