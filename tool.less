@@ -19,8 +19,8 @@
 
 
 	//更换某个变量的数值
-	top.changeValue:function(mixin,valueName,newValue){
-		mixin[valueName] = .value.value[0].value=newValue;
+	top.changeValue = function(mixin,valueName,newValue){
+		mixin[valueName].value.value[0].value=newValue;
 	}
 })()`;
 
@@ -301,7 +301,7 @@
 //  形式3:1000px _12px        表示总宽度为1000,单元格间距为12px，两边有空白
 //参数2 @col_width_list 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
 //举例 .row1{.gen_grid(1000px 10px,60px,100px,90px,88px, 180px); >*{.iblock};}
-.gen_grid(@main_w__gap,@col_width_list...){
+.gen_grid(@main_w__gap,@col_width_list){
 	@leng:length(@col_width_list);
 
 	//分析第一参数
@@ -387,10 +387,12 @@
 
 	//消除间隔
 	font-size: 0;
-	//white-space: nowrap;
+	//white-space: normal;
 
 	//对单元格的一些公共设置
 	>*{
 		&:extend(.iblock); font-size: @fsize;
 	}
 }
+
+
