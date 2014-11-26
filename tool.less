@@ -18,6 +18,10 @@
 	}
 
 
+	//更换某个变量的数值
+	top.changeValue:function(mixin,valueName,newValue){
+		mixin[valueName] = .value.value[0].value=newValue;
+	}
 })()`;
 
 //同时设置行高和高度
@@ -288,15 +292,17 @@
 
 
 
+
+
 //用来生一个宽度序列
 //参数1 @main_w有三种形式
 //  形式1:1000px              表示总宽度为1000,单元格间距为0
 //  形式2:1000px 12px         表示总宽度为1000,单元格间距为12px，无两边空白
 //  形式3:1000px _12px        表示总宽度为1000,单元格间距为12px，两边有空白
-//参数2 @rest 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
+//参数2 @col_width_list 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
 //举例 .row1{.gen_grid(1000px 10px,60px,100px,90px,88px, 180px); >*{.iblock};}
-.gen_grid(@main_w__gap,@rest...){
-	@leng:length(@rest);
+.gen_grid(@main_w__gap,@col_width_list...){
+	@leng:length(@col_width_list);
 
 	//分析第一参数
 	@p_list:`(function(index){
@@ -324,7 +330,7 @@
 
 	//计算最后一个单元格宽度
 	@last_w:~`(function(){
-		var arg = eval("@{rest}".replace(/px/g,""));
+		var arg = eval("@{col_width_list}".replace(/px/g,""));
 		var main_w = parseInt("@{main_w}");
 
 		var gap_num = @{gap_num};
@@ -371,7 +377,7 @@
 	}
 
 	//生成1-(n-1)的宽度
-	.gen_grid_loop(@leng , @rest);
+	.gen_grid_loop(@leng , @col_width_list);
 
 	//生成n的宽度
 	@leng_p1:@leng+1;
@@ -381,6 +387,7 @@
 
 	//消除间隔
 	font-size: 0;
+	//white-space: nowrap;
 
 	//对单元格的一些公共设置
 	>*{
