@@ -395,4 +395,10 @@
 	}
 }
 
+.gen_grid_line(@main_w__gap,@col_width_list){
+	.gen_grid(@main_w__gap,@col_width_list);
+	white-space: nowrap;
+	>*{white-space: normal;}
+}
+
 
