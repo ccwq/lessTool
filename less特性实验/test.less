@@ -1,0 +1,30 @@
+@flag:0;
+.gen_grid_p(@main_w__gap,@col_width_list...)when not(isstring(@flag)){
+	@v_a:88px aaa "aaa" #fff,#ccc,90em,"bb";
+	@f1:~`(function(mx){
+		console.log(mx.v_a.value.value[2]);
+
+
+
+
+	})(this)`;
+	//border: 1px solid;
+	//height: @v_a;
+}
+
+//第二种形式第一个参数是flag
+.gen_grid_p(@main_w__gap,@flag,@col_width_list...)when(isstring(@flag)){
+	border: none;
+}
+
+div{
+	@a:~`(function(){
+		//console.log(this);
+
+	})()`;
+	.gen_grid_p(60px,60px;);
+}
+
+
+
+
