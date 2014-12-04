@@ -1,6 +1,9 @@
 //向全局对象注入对象或者变量
 @__inject:`(function(){
 	var top = this;
+
+	if(top.addUnitToNumber) return;
+
 	var temp_top;
 	top.bindvar = function(key,value){
 		temp_top = top;
@@ -17,11 +20,21 @@
 		});
 	}
 
-
 	//更换某个变量的数值
 	top.changeValue = function(mixin,valueName,newValue){
 		mixin[valueName].value.value[0].value=newValue;
-	}
+	};
+
+
+	//给没有单位的数字增加默认单位
+	//如果有单位存在不处理直接返回；
+	top.addUnitToNumber = function(numStr,unitStr){
+		if(/\d+\D/.test(numStr)){
+			return numStr;
+		}else{
+			return parseInt(numStr) + unitStr;
+		}
+	};
 })()`;
 
 //同时设置行高和高度
@@ -74,7 +87,11 @@
 
 //block尺寸，同时设置长宽
 ._size(@size){._size(@size,@size)}
-._size(@width,@height){ width: @width; height:@height; }
+._size(@width,@height){
+	@c:@__inject;
+	width: ~`addUnitToNumber('@{width}',"px")`;
+	height:~`addUnitToNumber('@{height}',"px")`;
+}
 
 
 
@@ -401,7 +418,5 @@
 	>*{white-space: normal;}
 }
 
-
 //ie上需要垂直居中时候，字体大小和容器高度的比率
 @ie7_vm_ratio:0.905;
-
