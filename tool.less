@@ -38,8 +38,8 @@
 })()`;
 
 //同时设置行高和高度
-.lineh(@h){ height:@h; line-height: @h; }
-.lineh(@lh,@h){ height:@h; line-height: @lh; }
+.lineh(@h){ height: ~`addUnitToNumber('@{h}',"px")`; line-height: ~`addUnitToNumber('@{h}',"px")`; }
+.lineh(@lh,@h){ height: ~`addUnitToNumber('@{h}',"px")`; line-height:  ~`addUnitToNumber('@{lh}',"px")`; }
 .line_height(@h){.lineh(@h)};
 .line-height(@h){.lineh(@h)};
 
