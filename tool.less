@@ -35,6 +35,23 @@
 			return parseInt(numStr) + unitStr;
 		}
 	};
+
+	//不改变数值大小的情况下，给字数字前面补0，凑成固定长度
+	Number.prototype.prepandZero = function(n,jinzhi){
+		var str = this.toString(jinzhi || 0);
+		if(str.length<n){
+			var nn = n - str.length;
+			while(nn--){
+				str="0"+str;
+			}
+			return str;
+		}
+
+		return str;
+	}
+
+	//快捷log
+	top.lg = console.log;
 })()`;
 
 //同时设置行高和高度
@@ -421,3 +438,132 @@
 
 //ie上需要垂直居中时候，字体大小和容器高度的比率
 @ie7_vm_ratio:0.905;
+
+//对p一些常用的定义
+.p_define(){
+	p{
+		text-indent: 2em;
+		&.b{ font-weight: 600;}
+		&.noti{ text-indent: 0;}
+		&.c{ text-align: center;}
+
+	}
+}
+
+
+//兼容性渐变
+.gradient(@dire; @starColor; @endColor){
+
+	@ie:"ie";
+	@moz_o:"";
+	@webkit:"";
+	@calc:~`(function(me){
+		var dire = '@{dire}';
+		var startColor = '@{starColor}'.replace(/\[|\]/g,"");
+		var endColor = '@{endColor}'.replace(/\[|\]/g,"");
+
+		var rg = /\{(\w+)\}/g;
+
+		var all_var = {
+			dire:dire
+		};
+
+		all_var.webkit_dire = (function(){
+			if(dire=="left")    return "0 0, right 0,";
+			if(dire=="top")     return "0 0, 0 bottom,";
+			if(dire=="right")   return "right 0, 0 0,";
+			if(dire=="bottom")   return "0 bottom, 0 0,";
+		})()
+
+		var so = all_var;
+		so.s_arr = startColor.split(",");
+		so.s_cl = so.s_arr[0];
+		//处理如下形式#08c的颜色
+		if(so.s_cl.length < 6) so.s_cl = so.s_cl.replace(/\a|\w/g,function(tx){return tx+""+tx});
+		so.s_cl_int = parseInt(so.s_cl.replace("#","0x"));
+		so.s_cl_r = (so.s_cl_int & 0xff0000)>>16;
+		so.s_cl_g = (so.s_cl_int & 0x00ff00)>>8;
+		so.s_cl_b = (so.s_cl_int & 0x0000ff)>>0;
+		so.s_alpha = so.s_arr[1] || 1;
+		so.s_alpha_p = so.s_alpha*100;
+
+		//获得#AARRGGBB形式颜色
+		so.s_cl__ie = so.s_cl.replace("#",function(tx){
+			return "#" + (0xff * so.s_alpha>>0).prepandZero(2,16)
+		});
+
+		//rgba(); 形式颜色
+		so.s_rgba = "rgba({s_cl_r}, {s_cl_g}, {s_cl_b}, {s_alpha})".replace(rg,function(tx,val){
+			return all_var[val];
+		});
+
+
+		var eo = all_var;
+		eo.e_arr = endColor.split(",");
+		eo.e_cl = eo.e_arr[0];
+		if(eo.e_cl.length < 6) eo.e_cl = eo.e_cl.replace(/\a|\w/g,function(tx){return tx+""+tx});
+		eo.e_cl_int = parseInt(eo.e_cl.replace("#","0x"));
+		eo.e_cl_r = (eo.e_cl_int & 0xff0000)>>16;
+		eo.e_cl_g = (eo.e_cl_int & 0x00ff00)>>8;
+		eo.e_cl_b = (eo.e_cl_int & 0x0000ff)>>0;
+		eo.e_alpha = eo.e_arr[1] || 1;
+		eo.e_alpha_p = eo.e_alpha*100;
+		eo.e_cl__ie = eo.e_cl.replace("#",function(tx){
+			return "#" + (0xff * eo.e_alpha>>0).prepandZero(2,16)
+		});
+		eo.e_rgba = "rgba({e_cl_r}, {e_cl_g}, {e_cl_b}, {e_alpha})".replace(rg,function(tx,val){
+			return all_var[val];
+		});
+
+		//ie下的渐变类型
+		//0垂直 1水平. 默认1
+		all_var.gradientType=1;
+		if(/top|bottom/.test(dire)){
+			all_var.gradientType=0;
+		}
+
+		//在某些形式下，ie需要交换起始颜色和结束颜色
+		if(/right|bottom/.test(dire)){
+			var s_temp = all_var.s_cl__ie;
+			all_var.s_cl__ie = all_var.e_cl__ie;
+			all_var.e_cl__ie = s_temp;
+		}
+
+		changeValue(me,"ie",
+			"progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr={s_cl__ie},endColorstr={e_cl__ie},gradientType={gradientType})"
+			.replace(rg, function(tx,group1,i){
+				return all_var[group1];
+			})
+		);
+
+
+		changeValue(me,"moz_o",
+			'linear-gradient({dire}, {s_rgba}, {e_rgba})'
+			.replace(rg, function(tx,group1,i){
+				return all_var[group1];
+			})
+		);
+
+		changeValue(me,"webkit",
+			'-webkit-gradient(linear, {webkit_dire} from({s_rgba}), to({e_rgba}))'
+			.replace(rg, function(tx,group1,i){
+				return all_var[group1];
+			})
+		);
+
+	})(this)`;
+
+	filter:         ~"@{ie}";
+	background:     ~"-moz-@{moz_o}";
+	background:     ~"-o-@{moz_o}" ;
+	background:     ~"@{webkit}";
+}
+
+
+.gradi{
+	.gradient(top, #08c 0.5, #f80); height: 100%;
+	//.bgcolor_alpha(rgba(255,0,0, 0.5));
+}
+
+
+
