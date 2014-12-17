@@ -326,9 +326,6 @@
 
 
 
-
-
-
 //用来生一个宽度序列
 //参数1 @main_w有三种形式
 //  形式1:1000px              表示总宽度为1000,单元格间距为0
@@ -453,11 +450,10 @@
 
 //兼容性渐变
 .gradient(@dire; @starColor; @endColor){
-
 	@ie:"ie";
 	@moz_o:"";
 	@webkit:"";
-	@calc:~`(function(me){
+	@calc:`(function(me){
 		var dire = '@{dire}';
 		var startColor = '@{starColor}'.replace(/\[|\]/g,"");
 		var endColor = '@{endColor}'.replace(/\[|\]/g,"");
@@ -485,7 +481,6 @@
 		so.s_cl_g = (so.s_cl_int & 0x00ff00)>>8;
 		so.s_cl_b = (so.s_cl_int & 0x0000ff)>>0;
 		so.s_alpha = so.s_arr[1] || 1;
-		so.s_alpha_p = so.s_alpha*100;
 
 		//获得#AARRGGBB形式颜色
 		so.s_cl__ie = so.s_cl.replace("#",function(tx){
@@ -497,7 +492,6 @@
 			return all_var[val];
 		});
 
-
 		var eo = all_var;
 		eo.e_arr = endColor.split(",");
 		eo.e_cl = eo.e_arr[0];
@@ -507,7 +501,6 @@
 		eo.e_cl_g = (eo.e_cl_int & 0x00ff00)>>8;
 		eo.e_cl_b = (eo.e_cl_int & 0x0000ff)>>0;
 		eo.e_alpha = eo.e_arr[1] || 1;
-		eo.e_alpha_p = eo.e_alpha*100;
 		eo.e_cl__ie = eo.e_cl.replace("#",function(tx){
 			return "#" + (0xff * eo.e_alpha>>0).prepandZero(2,16)
 		});
@@ -535,22 +528,18 @@
 				return all_var[group1];
 			})
 		);
-
-
 		changeValue(me,"moz_o",
 			'linear-gradient({dire}, {s_rgba}, {e_rgba})'
 			.replace(rg, function(tx,group1,i){
 				return all_var[group1];
 			})
 		);
-
 		changeValue(me,"webkit",
 			'-webkit-gradient(linear, {webkit_dire} from({s_rgba}), to({e_rgba}))'
 			.replace(rg, function(tx,group1,i){
 				return all_var[group1];
 			})
 		);
-
 	})(this)`;
 
 	filter:         ~"@{ie}";
@@ -558,6 +547,5 @@
 	background:     ~"-o-@{moz_o}" ;
 	background:     ~"@{webkit}";
 }
-
 
 
