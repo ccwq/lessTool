@@ -512,7 +512,6 @@
 		var so = all_var;
 		so.s_arr = startColor.split(",");
 		so.s_cl = so.s_arr[0];
-		so.s_cl_int = parseInt(so.s_cl.replace("#","0x"));
 		so.s_alpha = so.s_arr[1] || 1;
 
 		//获得#AARRGGBB形式颜色
@@ -527,13 +526,9 @@
 		eo.e_cl__ie = getARGB(eo.e_cl,eo.e_alpha)
 		eo.e_rgba = getRGBA(eo.e_cl,eo.e_alpha);
 
-
-		//ie下的渐变类型
-		//0垂直 1水平. 默认1
+		//ie下的渐变类型 0垂直 1水平. 默认1
 		all_var.gradientType=1;
-		if(/top|bottom/.test(dire)){
-			all_var.gradientType=0;
-		}
+		if(/top|bottom/.test(dire)) all_var.gradientType=0;
 
 		//在某些形式下，ie需要交换起始颜色和结束颜色
 		if(/right|bottom/.test(dire)){
@@ -542,9 +537,7 @@
 			all_var.e_cl__ie = s_temp;
 		}
 
-		function rep_val_func(tx,group1,i){
-			return all_var[group1];
-		}
+		function rep_val_func(tx,group1,i){ return all_var[group1]; }
 
 		changeValue(me,"ie", "progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr={s_cl__ie},endColorstr={e_cl__ie},gradientType={gradientType})" .replace(rg, rep_val_func) );
 		changeValue(me,"moz_o", 'linear-gradient({dire}, {s_rgba}, {e_rgba})' .replace(rg, rep_val_func) );
