@@ -52,6 +52,46 @@
 
 	//快捷log
 	top.lg = console.log;
+
+
+	//通过形如#f80,#fffff, e0e0e0的颜色值获取数字形颜色值
+	top.__strColorToInt = function(strColor){
+		if(strColor.substring(1,0) == "#")  strColor = strColor.substring(1);                                //去井
+		if(strColor.length == 3) strColor = strColor.replace(/\w/g,function(tx){return tx+""+tx});          //3位重复
+		return parseInt("0x"+strColor);
+
+	}
+
+	//传入一个色值（字符串形式和数字形式）和透明度，返回一个包含rgba信息的对象
+	top.__get_rgba_object = function(rgb, alpha){
+		var obj = {};
+		obj.alpha = alpha || 1;
+		var rgbInt = rgb;
+		if(typeof rgbInt=="string")  rgbInt = top.__strColorToInt(rgbInt);
+		obj.r = (rgbInt & 0xff0000)>>16;
+		obj.g = (rgbInt & 0x00ff00)>>8;
+		obj.b = (rgbInt & 0x0000ff)>>0;
+		return obj;
+	}
+
+	//根据一个色值和透明度，返回RGBA，例 255,0,0,0.5 半透明红色
+	top.getRGBA = function(rgb,alpha,simpleMode){
+		var obj = top.__get_rgba_object(rgb,alpha);
+		var rgba = obj.r + "," + obj.g +","+obj.b+","+ obj.alpha;
+		if(simpleMode) return rgba;
+		return "rgba(" + rgba +")";
+	}
+
+	//根据一个色值和透明度，返回ARGB形式的字符串,如#07ff0000 半透明红色
+	top.getARGB = function(rgb,alpha){
+		var o = top.__get_rgba_object(rgb,alpha);
+		return "#"
+			+ (255*o.alpha>>0).prepandZero(2,16)
+			+ o.r.prepandZero(2,16)
+			+ o.g.prepandZero(2,16)
+			+ o.b.prepandZero(2,16)
+		;
+	}
 })()`;
 
 //同时设置行高和高度
@@ -111,15 +151,10 @@
 }
 
 
-
-
 //发光效果
 ._glow(@color:#fff, @blur:15px){
 	box-shadow: @color 0 0 @blur;
 }
-
-
-
 
 //-------------------------------------------------工具
 .noSelect(){
@@ -191,11 +226,8 @@
 	.planeUl{ .planeUl(); }
 	.noSelect{.noSelect();}
 	.yahei{.yahei();}
+	.heiti{.heiti;}
 	.expandin{.expandin();}
-	.icon12{._icon(12px)}
-	.icon16{._icon(16px)}
-	.icon24{._icon(24px)}
-	.icon36{._icon(36px)}
 	.v_hidden{.v_hidden();}
 }
 
@@ -468,13 +500,8 @@
 		var dire = '@{dire}';
 		var startColor = '@{starColor}'.replace(/\[|\]/g,"");
 		var endColor = '@{endColor}'.replace(/\[|\]/g,"");
-
 		var rg = /\{(\w+)\}/g;
-
-		var all_var = {
-			dire:dire
-		};
-
+		var all_var = { dire:dire };
 		all_var.webkit_dire = (function(){
 			if(dire=="left")    return "0 0, right 0,";
 			if(dire=="top")     return "0 0, 0 bottom,";
@@ -485,39 +512,21 @@
 		var so = all_var;
 		so.s_arr = startColor.split(",");
 		so.s_cl = so.s_arr[0];
-		//处理如下形式#08c的颜色
-		if(so.s_cl.length < 6) so.s_cl = so.s_cl.replace(/\a|\w/g,function(tx){return tx+""+tx});
 		so.s_cl_int = parseInt(so.s_cl.replace("#","0x"));
-		so.s_cl_r = (so.s_cl_int & 0xff0000)>>16;
-		so.s_cl_g = (so.s_cl_int & 0x00ff00)>>8;
-		so.s_cl_b = (so.s_cl_int & 0x0000ff)>>0;
 		so.s_alpha = so.s_arr[1] || 1;
 
 		//获得#AARRGGBB形式颜色
-		so.s_cl__ie = so.s_cl.replace("#",function(tx){
-			return "#" + (0xff * so.s_alpha>>0).prepandZero(2,16)
-		});
-
+		so.s_cl__ie = getARGB(so.s_cl,so.s_alpha)
 		//rgba(); 形式颜色
-		so.s_rgba = "rgba({s_cl_r}, {s_cl_g}, {s_cl_b}, {s_alpha})".replace(rg,function(tx,val){
-			return all_var[val];
-		});
+		so.s_rgba = getRGBA(so.s_cl,so.s_alpha);
 
 		var eo = all_var;
 		eo.e_arr = endColor.split(",");
 		eo.e_cl = eo.e_arr[0];
-		if(eo.e_cl.length < 6) eo.e_cl = eo.e_cl.replace(/\a|\w/g,function(tx){return tx+""+tx});
-		eo.e_cl_int = parseInt(eo.e_cl.replace("#","0x"));
-		eo.e_cl_r = (eo.e_cl_int & 0xff0000)>>16;
-		eo.e_cl_g = (eo.e_cl_int & 0x00ff00)>>8;
-		eo.e_cl_b = (eo.e_cl_int & 0x0000ff)>>0;
 		eo.e_alpha = eo.e_arr[1] || 1;
-		eo.e_cl__ie = eo.e_cl.replace("#",function(tx){
-			return "#" + (0xff * eo.e_alpha>>0).prepandZero(2,16)
-		});
-		eo.e_rgba = "rgba({e_cl_r}, {e_cl_g}, {e_cl_b}, {e_alpha})".replace(rg,function(tx,val){
-			return all_var[val];
-		});
+		eo.e_cl__ie = getARGB(eo.e_cl,eo.e_alpha)
+		eo.e_rgba = getRGBA(eo.e_cl,eo.e_alpha);
+
 
 		//ie下的渐变类型
 		//0垂直 1水平. 默认1
@@ -533,24 +542,13 @@
 			all_var.e_cl__ie = s_temp;
 		}
 
-		changeValue(me,"ie",
-			"progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr={s_cl__ie},endColorstr={e_cl__ie},gradientType={gradientType})"
-			.replace(rg, function(tx,group1,i){
-				return all_var[group1];
-			})
-		);
-		changeValue(me,"moz_o",
-			'linear-gradient({dire}, {s_rgba}, {e_rgba})'
-			.replace(rg, function(tx,group1,i){
-				return all_var[group1];
-			})
-		);
-		changeValue(me,"webkit",
-			'-webkit-gradient(linear, {webkit_dire} from({s_rgba}), to({e_rgba}))'
-			.replace(rg, function(tx,group1,i){
-				return all_var[group1];
-			})
-		);
+		function rep_val_func(tx,group1,i){
+			return all_var[group1];
+		}
+
+		changeValue(me,"ie", "progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr={s_cl__ie},endColorstr={e_cl__ie},gradientType={gradientType})" .replace(rg, rep_val_func) );
+		changeValue(me,"moz_o", 'linear-gradient({dire}, {s_rgba}, {e_rgba})' .replace(rg, rep_val_func) );
+		changeValue(me,"webkit", '-webkit-gradient(linear, {webkit_dire} from({s_rgba}), to({e_rgba}))' .replace(rg, rep_val_func) );
 	})(this)`;
 
 	filter:         ~"@{ie}";
