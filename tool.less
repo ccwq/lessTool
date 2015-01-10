@@ -22,7 +22,12 @@
 
 	//更换某个变量的数值
 	top.changeValue = function(mixin,valueName,newValue){
-		mixin[valueName].value.value[0].value=newValue;
+		try{
+			mixin[valueName].value.value[0].value=newValue;
+		}catch(e){
+			lg("changeValue运行出错了！");
+			lg(mixin,valueName,newValue)
+		}
 	};
 
 
