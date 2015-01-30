@@ -559,3 +559,13 @@
 }
 
 
+//文字阴影
+.tx_sd(@color:#333,@strength:2){
+	filter:glow(color=@color,strength=@strength);
+	.loop(@n) when(@n > 0 ){
+		.loop(@n - 1);
+		text-shadow+: @color 0 0 3px;
+	}
+	.loop(@strength);
+}
+
