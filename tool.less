@@ -155,6 +155,19 @@
 	height:~`addUnitToNumber('@{height}',"px")`;
 }
 
+//设置高度时，同时设置line-height
+._size_lh(@width,@height){
+	@c:@__inject;
+	._size(@width,@height);
+	line-height: ~`addUnitToNumber('@{height}',"px")`;
+}
+
+._size_lh(@s){
+	._size_lh(@s,@s)
+}
+
+
+
 
 //发光效果
 ._glow(@color:#fff, @blur:15px){
