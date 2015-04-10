@@ -167,6 +167,19 @@
 }
 
 
+//设置尺寸时候，同时设置margin没size尺寸的一般（负）
+._size_rever_margin(@width,@height){
+	@c:@__inject;
+	._size(@width,@height);
+	@rev_half_w:-@width/2;
+	@rev_half_h:-@height/2;
+	margin-left: ~`addUnitToNumber('@{rev_half_w}',"px")`;
+	margin-top : ~`addUnitToNumber('@{rev_half_h}',"px")`;
+}
+
+._size_rever_margin(@size){
+	.size_rever_margin(@size,@size);
+}
 
 
 //发光效果
