@@ -386,14 +386,6 @@
 .__icon{background-repeat: no-repeat; background-position: 50% 50%;}
 
 
-//半透明背景，兼容ie
-.bgcolor_alpha(@bgcolor: rgba(0,0,0,.5)){
-	color:#fff;
-	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= argb(@bgcolor), endColorstr=argb(@bgcolor));
-	background-color:@bgcolor;
-}
-
-
 // 不可见，但是仍可以加载
 .v_hidden(){
 	position: absolute;
@@ -595,3 +587,24 @@
 	.loop(@strength);
 }
 
+
+
+//半透明背景，兼容ie
+.bgcolor_alpha(@bgcolor: rgba(0,0,0,.51)){
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr = argb(@bgcolor), endColorstr=argb(@bgcolor));
+	background-color:@bgcolor;
+}
+
+.bgcolor_alpha(@rgb,@alpha){
+	@rgba:~`(function(){
+		var obj = __get_rgba_object('@{rgb}',@{alpha});
+		return getRGBA('@{rgb}',@{alpha});
+	})(this)`;
+
+	@argb_16:~`(function(){
+		return getARGB('@{rgb}',@{alpha})
+	})(this)`;
+
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= @argb_16, endColorstr=@argb_16);
+	background-color:@rgba;
+}
