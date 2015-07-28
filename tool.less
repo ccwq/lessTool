@@ -226,16 +226,23 @@
 .center(){margin-left: auto; margin-right: auto;}
 
 //微软雅黑 雅黑英文 黑体 新宋体
-.yahei(){   font-family: "\5FAE\8F6F\96C5\9ED1", "Microsoft YaHei", "\9ED1\4F53", "\65B0\5B8B\4F53";}
+.yahei(){   font-family: @font_yahei;}
 
 //宋体
-.songti(){  font-family: "\5B8B\4F53", "SimSun";}
+.songti(){  font-family: @font_songti;}
 
 //新宋体
-.xinst(){   font-family: "\65B0\5B8B\4F53", "NSimSun";}
+.xinst(){   font-family: @font_xinst;}
 
 //黑体
-.heiti(){   font-family: "\9ED1\4F53", "SimHei";}
+.heiti(){   font-family: @font_heiti;}
+
+@font_yahei:"\5FAE\8F6F\96C5\9ED1", "Microsoft YaHei", "\9ED1\4F53", "\65B0\5B8B\4F53";
+@font_songti:"\5B8B\4F53", "SimSun";
+@font_xinst:"\65B0\5B8B\4F53", "NSimSun";
+@font_heiti:"\9ED1\4F53", "SimHei";
+@font_arial:"Arial";
+
 
 
 
