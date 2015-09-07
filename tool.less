@@ -34,7 +34,7 @@
 	//给没有单位的数字增加默认单位
 	//如果有单位存在不处理直接返回；
 	top.addUnitToNumber = function(numStr,unitStr){
-		if(/(\d+\.*\d*)/.test(numStr)){
+		if(/(-?\d+\.*\d*)/.test(numStr)){
 			return RegExp["$1"] + (unitStr || "");
 		}
 		throw "addUnitToNumber:参数不正确";
