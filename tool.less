@@ -34,11 +34,10 @@
 	//给没有单位的数字增加默认单位
 	//如果有单位存在不处理直接返回；
 	top.addUnitToNumber = function(numStr,unitStr){
-		if(/\d+\D/.test(numStr)){
-			return numStr;
-		}else{
-			return parseInt(numStr) + unitStr;
+		if(/(\d+\.*\d*)/.test(numStr)){
+			return RegExp["$1"] + (unitStr || "");
 		}
+		throw "addUnitToNumber:参数不正确";
 	};
 
 	//不改变数值大小的情况下，给字数字前面补0，凑成固定长度
