@@ -33,11 +33,21 @@
 
 	//给没有单位的数字增加默认单位
 	//如果有单位存在不处理直接返回；
-	top.addUnitToNumber = function(numStr,unitStr){
-		if(/(-?\d+\.*\d*)/.test(numStr)){
-			return RegExp["$1"] + (unitStr || "");
+	top.addUnitToNumber = function(numStr,unitStr,isforce){
+		numStr = (numStr+"").replace(/\b\s/g,"");
+		//带单位
+		if(/[a-zA-Z]+$/.test(numStr)){
+			//不强制
+			if(!isforce){
+				return numStr;
+			//强制
+			}else{
+				return numStr.replace(Regexp["$1"],unitStr);
+			}
+		//不带单位
+		}else{
+			return numStr + unitStr;
 		}
-		throw "addUnitToNumber:参数不正确";
 	};
 
 	//不改变数值大小的情况下，给字数字前面补0，凑成固定长度
