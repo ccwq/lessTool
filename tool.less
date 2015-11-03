@@ -518,6 +518,56 @@
 	>*{white-space: normal;}
 }
 
+
+//生成列均等的网格布局
+//@main_width整体宽度
+//@gap间隔
+//@n网格猎数
+//@edge_gap间隔是否在边沿
+//@cell_width_offset宽度微调
+.gen_grid_average(@main_width,@n,@gap:0,@edge_gap:false,@cell_width_offset:0){
+	.gen_comm(){
+		padding-top: @gap;
+		padding-bottom: @gap;
+		//margin-left: -@gap/2;
+		left: -@gap/2;
+		position: relative;
+		font-size: 0;
+
+		>*{
+			&:extend(.iblock);
+			font-size: 14px;
+			min-height: @gap;
+			margin-bottom: @gap;
+			.margin_h(@gap/2);
+		}
+	}
+	.gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = true){
+		@cellw:(@main_width - (@n + 1)*@gap)/@n + @cell_width_offset;
+		width: @main_width;
+		padding-left: @gap;
+		>*{
+			width: @cellw;
+		}
+	}
+
+	.gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
+		@cellw:(@main_width - (@n - 1)*@gap)/@n + @cell_width_offset;
+		width: @main_width + @gap;
+
+		>*{
+			width: @cellw;
+		}
+	}
+
+	.gen_comm;
+	.gen(@main_width,@gap,@n,@edge_gap);
+
+}
+
+
+
+
 //ie上需要垂直居中时候，字体大小和容器高度的比率
 @ie7_vm_ratio:0.905;
 
