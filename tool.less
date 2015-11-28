@@ -191,6 +191,16 @@
 }
 
 
+._size_revert_margin_lh(@width,@height){
+	._size_rever_margin(@width,@height);
+	line-height: ~`addUnitToNumber('@{height}',"px")`;
+}
+
+._size_revert_margin_lh(@size){
+	._size_revert_margin_lh(@size,@size);
+}
+
+
 //发光效果
 ._glow(@color:#fff, @blur:15px){
 	box-shadow: @color 0 0 @blur;
