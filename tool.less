@@ -562,7 +562,7 @@
 	}
 
 	.gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
-		@cellw:(@main_width - (@n - 1)*@gap)/@n + @cell_width_offset;
+		@cellw:(@main_width - (@n)*@gap)/@n + @cell_width_offset;
 		width: @main_width + @gap;
 
 		>*{
