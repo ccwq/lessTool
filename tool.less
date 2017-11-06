@@ -787,3 +787,46 @@
 @SineEaseIn: cubic-bezier(0.470, 0.000, 0.745, 0.715);
 @SineEaseOut: cubic-bezier(0.390, 0.575, 0.565, 1.000);
 @SineEaseInOut: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+
+
+.shortcut-class(){
+    .yellow{  color: #F5C904;}
+    .big{font-size: 1.2em;}
+    .small{  font-size: 0.7em;}
+    .cl-blue{  color: #25B0F6;}
+    .cl-black{  color: #3A3A3A;}
+    .cl-pp{  color: #395BBC;  }
+    .size-icon-mid{  font-size: 2rem;}
+    .size-icon-small{  font-size: 1.4rem;}
+    i.v-split{
+        height: 1em;
+        display: inline-block;
+        width: 1px;
+        background-color: #dcdcdc;
+    }
+    .tr{  text-align: right;}
+    .row{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &.between{  justify-content: space-between;  }
+        &.fx1{  flex: 1;}
+    }
+
+
+    >.img{
+        height: 7.2em;
+        width: 8em;
+        margin-right:@page-edge/2;
+        img{
+            display: block;
+            &:extend(.expandin);
+            border-radius:0;
+        }
+    }
+}
+
+
+
+
+
