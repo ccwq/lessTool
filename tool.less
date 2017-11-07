@@ -1133,6 +1133,29 @@
 
 
 
+//规定表格个列的宽度,自动宽度传入-1
+//ex:
+//.table-1{
+//     .tableColSet(18em 15px -1 -1 10%);
+//}
+//.table-1第一列宽度18em,第二列15px,第三列自动...
+.tableColSet(@widthList){
+    .output(@n,@value)when(@value>0){
+        &:nth-child(@{n}){
+            width:@value;
+        }
+    }
+    .loop(@n)when(@n>0){
+        td,th{  .output(@n,extract(@widthList,@n));  }
+        .loop(@n - 1);
+    }
+
+    @le:length(@widthList);
+    .loop(@le);
+}
+
+
+
 //.mdColorClass;
 //.shortcutClass;
 
