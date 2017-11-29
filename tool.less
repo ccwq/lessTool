@@ -123,26 +123,26 @@
 
 //正常和鼠标划过颜色变化 通过颜色设置
 .hover_cl(@color:#ccc, @color_hover:#fff) when(iscolor(@color_hover)){
-	color: @color;
-	&:hover{color: @color_hover;}
+    color: @color;
+    &:hover{color: @color_hover;}
 }
 
 //正常和鼠标划过颜色变化 通过亮度设置
 .hover_cl(@color:#ccc, @lighten:12%) when not(iscolor(@lighten)){
-	color: @color;
-	&:hover{color: lighten(@color,@lighten);}
+    color: @color;
+    &:hover{color: lighten(@color,@lighten);}
 }
 
 //正常和鼠标划过颜色变化 通过颜色设置
 .hover_bg(@color:#ccc, @color_hover:#fff) when(iscolor(@color_hover)){
-	background-color: @color;
-	&:hover{background-color: @color_hover;}
+    background-color: @color;
+    &:hover{background-color: @color_hover;}
 }
 
 //正常和鼠标划过颜色变化 通过亮度设置
 .hover_bg(@color:#ccc, @lighten:12%) when not(iscolor(@lighten)){
-	background-color: @color;
-	&:hover{background-color:lighten(@color,@lighten); }
+    background-color: @color;
+    &:hover{background-color:lighten(@color,@lighten); }
 }
 
 
@@ -159,60 +159,60 @@
 //block尺寸，同时设置长宽
 ._size(@size){._size(@size,@size)}
 ._size(@width,@height){
-	@c:@__inject;
-	width: ~`addUnitToNumber('@{width}',"px")`;
-	height:~`addUnitToNumber('@{height}',"px")`;
+    @c:@__inject;
+    width: ~`addUnitToNumber('@{width}',"px")`;
+    height:~`addUnitToNumber('@{height}',"px")`;
 }
 
 //设置高度时，同时设置line-height
 ._size_lh(@width,@height){
-	@c:@__inject;
-	._size(@width,@height);
-	line-height: ~`addUnitToNumber('@{height}',"px")`;
+    @c:@__inject;
+    ._size(@width,@height);
+    line-height: ~`addUnitToNumber('@{height}',"px")`;
 }
 
 ._size_lh(@s){
-	._size_lh(@s,@s)
+    ._size_lh(@s,@s)
 }
 
 
 //设置尺寸时候，同时设置margin没size尺寸的一般（负）
 ._size_rever_margin(@width,@height){
-	@c:@__inject;
-	._size(@width,@height);
-	@rev_half_w:-@width/2;
-	@rev_half_h:-@height/2;
-	margin-left: ~`addUnitToNumber('@{rev_half_w}',"px")`;
-	margin-top : ~`addUnitToNumber('@{rev_half_h}',"px")`;
+    @c:@__inject;
+    ._size(@width,@height);
+    @rev_half_w:-@width/2;
+    @rev_half_h:-@height/2;
+    margin-left: ~`addUnitToNumber('@{rev_half_w}',"px")`;
+    margin-top : ~`addUnitToNumber('@{rev_half_h}',"px")`;
 }
 
 ._size_rever_margin(@size){
-	._size_rever_margin(@size,@size);
+    ._size_rever_margin(@size,@size);
 }
 
 
 ._size_revert_margin_lh(@width,@height){
-	._size_rever_margin(@width,@height);
-	line-height: ~`addUnitToNumber('@{height}',"px")`;
+    ._size_rever_margin(@width,@height);
+    line-height: ~`addUnitToNumber('@{height}',"px")`;
 }
 
 ._size_revert_margin_lh(@size){
-	._size_revert_margin_lh(@size,@size);
+    ._size_revert_margin_lh(@size,@size);
 }
 
 
 //发光效果
 ._glow(@color:#fff, @blur:15px){
-	box-shadow: @color 0 0 @blur;
+    box-shadow: @color 0 0 @blur;
 }
 
 //-------------------------------------------------工具
 .noSelect(){
-	-moz-user-select: none; /*火狐*/
-	-webkit-user-select: none;  /*webkit浏览器*/
-	-ms-user-select: none;   /*IE10*/
-	-khtml-user-select: none; /*早期浏览器*/
-	user-select: none;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none;  /*webkit浏览器*/
+    -ms-user-select: none;   /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
 }
 
 //重置ul li
@@ -220,25 +220,25 @@
 
 //使inline-blcok（并兼容旧版浏览器）
 .iblock(){
-	display: inline-block;  vertical-align: top;
-	*zoom:1; *display: inline;//ie
+    display: inline-block;  vertical-align: top;
+    *zoom:1; *display: inline;//ie
 }
 
 //左右上下居中。 通过left margin-left top margin-top结合
 .hv_center(@w;@h;@pos){
-	top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w; position: @pos;
+    top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w; position: @pos;
 }
 
 .hv_center(@w;@h){
-	top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w;
+    top: 50%; left: 50%; margin-top: -0.5*@h; margin-left: -0.5*@w;
 }
 
 .vcenter(@h,@vOffset:0px){
-	top: 50%; position: absolute; margin-top: -@h/2 + @vOffset;
+    top: 50%; position: absolute; margin-top: -@h/2 + @vOffset;
 }
 
 .hcenter(@w,@hOffset:0px){
-	left: 50%; position: absolute; margin-left: -@w/2 + @hOffset;
+    left: 50%; position: absolute; margin-left: -@w/2 + @hOffset;
 };
 
 //居中
@@ -256,6 +256,7 @@
 //黑体
 .heiti(){   font-family: @font_heiti;}
 
+@font_zhenghei:"Microsoft JhengHei";
 @font_yahei:"\5FAE\8F6F\96C5\9ED1", "Microsoft YaHei", "\9ED1\4F53", "\65B0\5B8B\4F53";
 @font_songti:"\5B8B\4F53", "SimSun";
 @font_xinst:"\65B0\5B8B\4F53", "NSimSun";
@@ -277,15 +278,15 @@
 
 //工具class //请在需要引入的地方写 .toolClass;
 .toolClass(){
-	.clear{font-size: 0; height: 0; width: 0; clear: both;}
-	.center{.center();}
-	.txcut{.txcut();}
-	.planeUl{ .planeUl(); }
-	.noSelect{.noSelect();}
-	.yahei{.yahei();}
-	.heiti{.heiti;}
-	.expandin{.expandin();}
-	.v_hidden{.v_hidden();}
+    .clear{font-size: 0; height: 0; width: 0; clear: both;}
+    .center{.center();}
+    .txcut{.txcut();}
+    .planeUl{ .planeUl(); }
+    .noSelect{.noSelect();}
+    .yahei{.yahei();}
+    .heiti{.heiti;}
+    .expandin{.expandin();}
+    .v_hidden{.v_hidden();}
 }
 
 .inblock, .iblock, .div_inline_block{ .iblock(); }
@@ -293,55 +294,55 @@
 
 //transform缩写形式
 .tsform(@val){
-	-webkit-transform+_:@val; -ms-transform+_:@val; transform+_:@val;
+    -webkit-transform+_:@val; -ms-transform+_:@val; transform+_:@val;
 }
 
 
 
 //缩放，参数2表示其他属性配置
 .ts_scale(@scaleVal:1, @val:""){
-	.tsform(~"scaleX(@{scaleVal}) scaleY(@{scaleVal}) @{val}");
+    .tsform(~"scaleX(@{scaleVal}) scaleY(@{scaleVal}) @{val}");
 }
 
 
 //旋转 @ang支持rad,deg单位
 .ts_rotate(@ang){
-	@deg:convert(@ang,"deg");
-	.tsform(rotate(@deg));
+    @deg:convert(@ang,"deg");
+    .tsform(rotate(@deg));
 }
 
 //兼容ie的旋转（ie必须设置尺寸，不然无法绕中心旋转）
 .ts_rotate(@ang,@width,@height){
-	.ts_rotate(@ang);
-	.ieRotate(unit(convert(@ang,"deg")),@width,@height);
+    .ts_rotate(@ang);
+    .ieRotate(unit(convert(@ang,"deg")),@width,@height);
 }
 
 //兼容ie并且同时设置尺寸
 .ts_rotate(@ang,@size){
-	.ts_rotate(@ang,@size,@size);
+    .ts_rotate(@ang,@size,@size);
 }
 
 
 //reset;
 .reset(){
-	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
-	img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
-	tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section,
-	summary,time, mark, audio, video {
-		margin: 0;padding: 0;border: 0;font-size: 100%;font-family: inherit;vertical-align: baseline;
-	}
+    html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em,
+    img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption,
+    tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section,
+    summary,time, mark, audio, video {
+        margin: 0;padding: 0;border: 0;font-size: 100%;font-family: inherit;vertical-align: baseline;
+    }
 
-	h1, h2, h3, h4, h5, h6{ font-weight: 700;}
+    h1, h2, h3, h4, h5, h6{ font-weight: 700;}
 
-	/* HTML5 display-role reset for older browsers */
-	article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block;}
-	body {line-height: 1; font-size: 12px;}
-	ol, ul{ list-style: none; }
-	blockquote, q {quotes: none;}
-	blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, footer, header, menu, nav, section { display: block;}
+    body {line-height: 1; font-size: 12px;}
+    ol, ul{ list-style: none; }
+    blockquote, q {quotes: none;}
+    blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}table {border-collapse: collapse;border-spacing: 0;}
 
-	i,em{font-style: normal;}
-	a{ text-decoration: none;}
+    i,em{font-style: normal;}
+    a{ text-decoration: none;}
 }
 
 
@@ -353,70 +354,70 @@
 //ie旋转
 //@ang只支持deg
 .ieRotate(@ang,@width,@height){
-	@deg:pi()*2 - unit(convert(unit(@ang,deg),"rad"));          //ie角度正好和w3c旋转相反
-	@sin:sin(@deg);
-	@cos:cos(@deg);
-	@fsin:-@sin;
-	@fcos:-@cos;
+    @deg:pi()*2 - unit(convert(unit(@ang,deg),"rad"));          //ie角度正好和w3c旋转相反
+    @sin:sin(@deg);
+    @cos:cos(@deg);
+    @fsin:-@sin;
+    @fcos:-@cos;
 
-	@w:unit(@width);
-	@h:unit(@height);
-	@dx:-@w/2*@cos+@h/2*@sin+@w/2;
-	@dy:-@w/2*@sin - @h/2*@cos+@h/2;
+    @w:unit(@width);
+    @h:unit(@height);
+    @dx:-@w/2*@cos+@h/2*@sin+@w/2;
+    @dy:-@w/2*@sin - @h/2*@cos+@h/2;
 
-	filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
-	//width: @width;
-	//height: @height;
+    filter:progid:DXImageTransform.Microsoft.Matrix(Dx=@dx, Dy=@dy,M11=@cos,M12=@sin,M21=@fsin,M22=@cos,sizingMethod="auto expand");
+    //width: @width;
+    //height: @height;
 }
 
 //ie 的旋转
 .ieRotate(@ang,@size){
-	.ieRotate(@ang, @size, @size);
+    .ieRotate(@ang, @size, @size);
 }
 
 
 
 //形成三角
 .triangle(@size,@dir:left,@color:#08c,@blankColor:transparent){
-	border: @size solid @blankColor; border-@{dir}-width: 0; ._size(0); font-size: 0; line-height: 0; &:extend(.iblock); vertical-align: middle;
+    border: @size solid @blankColor; border-@{dir}-width: 0; ._size(0); font-size: 0; line-height: 0; &:extend(.iblock); vertical-align: middle;
 
-	@rev_dir:~`(function(){
+    @rev_dir:~`(function(){
 		var dir = ({left:"right", top:"bottom", right:"left", bottom:"top"})["@{dir}"];
 		return dir || "left";
 	})()`;
 
-	border-@{rev_dir}-color:@color;
+    border-@{rev_dir}-color:@color;
 }
 
 //形成斜三角(45整数倍三角)
 .triangle45(@size,@dira:left,@dirb:bottom,@color:#08c,@blankColor:transparent){
-	border: @blankColor solid @size/2;
-	border-@{dira}-color:@color;
-	border-@{dirb}-color:@color;
-	line-height: 0;
-	font-size: 0;
-	._size(0);
-	&:extend(.iblock);
+    border: @blankColor solid @size/2;
+    border-@{dira}-color:@color;
+    border-@{dirb}-color:@color;
+    line-height: 0;
+    font-size: 0;
+    ._size(0);
+    &:extend(.iblock);
 }
 //----形成三角
 
 ._icon(@size, @src:none){
-	._icon(@size, @size, @src);
+    ._icon(@size, @size, @src);
 }
 ._icon(@width,@height,@src){
-	@ssrc:e(@src);
-	@url:~`"@{ssrc}"=="none"?"none":("url("+ "@{ssrc}" +")")`;
-	background-image: @url; ._size(@width,@height);
-	&:extend(.__icon); &:extend(.iblock);
+    @ssrc:e(@src);
+    @url:~`"@{ssrc}"=="none"?"none":("url("+ "@{ssrc}" +")")`;
+    background-image: @url; ._size(@width,@height);
+    &:extend(.__icon); &:extend(.iblock);
 }
 .__icon{background-repeat: no-repeat; background-position: 50% 50%;}
 
 
 // 不可见，但是仍可以加载
 .v_hidden(){
-	position: absolute;
-	clip:rect(1px 1px 1px 1px);//ie6/7
-	clip:rect(1px, 1px, 1px, 1px);//standard
+    position: absolute;
+    clip:rect(1px 1px 1px 1px);//ie6/7
+    clip:rect(1px, 1px, 1px, 1px);//standard
 }
 
 
@@ -429,10 +430,10 @@
 //参数2 @col_width_list 传入1-(n-1)各单元格宽度,最后一个单元格宽度由计算获得
 //举例 .row1{.gen_grid(1000px 10px,60px,100px,90px,88px, 180px); >*{.iblock};}
 .gen_grid(@main_w__gap,@col_width_list){
-	@leng:length(@col_width_list);
+    @leng:length(@col_width_list);
 
-	//分析第一参数
-	@p_list:`(function(index){
+    //分析第一参数
+    @p_list:`(function(index){
 		index = index || 0;
 		var para = "@{main_w__gap}".replace(/\[|\]|,/g,"");
 		var leng = @{leng};
@@ -449,14 +450,14 @@
 		return resultList[index-1];
 	})`;
 
-	//提取参数1的定义
-	@main_w:~`@{p_list}(1)`;
-	@gap_w:~`@{p_list}(2)`;
-	@gap_num:~`@{p_list}(3)`;
+    //提取参数1的定义
+    @main_w:~`@{p_list}(1)`;
+    @gap_w:~`@{p_list}(2)`;
+    @gap_num:~`@{p_list}(3)`;
 
 
-	//计算最后一个单元格宽度
-	@last_w:~`(function(){
+    //计算最后一个单元格宽度
+    @last_w:~`(function(){
 		var arg = eval("@{col_width_list}".replace(/px/g,""));
 		var main_w = parseInt("@{main_w}");
 
@@ -479,7 +480,7 @@
 
 
 
-	width:~`(function(){
+    width:~`(function(){
 		var main_w = parseInt("@{main_w}");
 		var gap_num = @{gap_num};
 		var leng = @{leng};
@@ -494,38 +495,38 @@
 	})()`;
 
 
-	//定义循环
-	.gen_grid_loop(@times,@paras) when(@times >0){
-		.gen_grid_loop(@times - 1, @paras);
-		>.cell-@{times}{
-			width: extract(@paras,@times);
-			margin-right: @gap_w;
-		}
-	}
+    //定义循环
+    .gen_grid_loop(@times,@paras) when(@times >0){
+        .gen_grid_loop(@times - 1, @paras);
+        >.cell-@{times}{
+            width: extract(@paras,@times);
+            margin-right: @gap_w;
+        }
+    }
 
-	//生成1-(n-1)的宽度
-	.gen_grid_loop(@leng , @col_width_list);
+    //生成1-(n-1)的宽度
+    .gen_grid_loop(@leng , @col_width_list);
 
-	//生成n的宽度
-	@leng_p1:@leng+1;
-	>.cell-last,>.cell-@{leng_p1}{
-		width:unit(@last_w,px);
-	}
+    //生成n的宽度
+    @leng_p1:@leng+1;
+    >.cell-last,>.cell-@{leng_p1}{
+        width:unit(@last_w,px);
+    }
 
-	//消除间隔
-	font-size: 0;
-	//white-space: normal;
+    //消除间隔
+    font-size: 0;
+    //white-space: normal;
 
-	//对单元格的一些公共设置
-	>*{
-		&:extend(.iblock); font-size: @fsize;
-	}
+    //对单元格的一些公共设置
+    >*{
+        &:extend(.iblock); font-size: @fsize;
+    }
 }
 
 .gen_grid_line(@main_w__gap,@col_width_list){
-	.gen_grid(@main_w__gap,@col_width_list);
-	white-space: nowrap;
-	>*{white-space: normal;}
+    .gen_grid(@main_w__gap,@col_width_list);
+    white-space: nowrap;
+    >*{white-space: normal;}
 }
 
 
@@ -536,43 +537,43 @@
 //@edge_gap间隔是否在边沿
 //@cell_width_offset宽度微调
 .gen_grid_average(@main_width,@n,@gap:0,@edge_gap:false,@cell_width_offset:0){
-	.gen_comm(){
-		padding-top: @gap;
-		padding-bottom: @gap;
-		//margin-left: -@gap/2;
-		text-indent: 0;
-		left: -@gap/2;
-		position: relative;
-		font-size: 0;
+    .gen_comm(){
+        padding-top: @gap;
+        padding-bottom: @gap;
+        //margin-left: -@gap/2;
+        text-indent: 0;
+        left: -@gap/2;
+        position: relative;
+        font-size: 0;
 
-		>*{
-			&:extend(.iblock);
-			font-size: 14px;
-			min-height: @gap;
-			margin-bottom: @gap;
-			.margin_h(@gap/2);
-		}
-	}
-	.gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = true){
-		@cellw:(@main_width - (@n + 1)*@gap)/@n + @cell_width_offset;
-		width: @main_width;
-		padding-left: @gap;
-		>*{
-			width: @cellw;
-		}
-	}
+        >*{
+            &:extend(.iblock);
+            font-size: 14px;
+            min-height: @gap;
+            margin-bottom: @gap;
+            .margin_h(@gap/2);
+        }
+    }
+    .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = true){
+        @cellw:(@main_width - (@n + 1)*@gap)/@n + @cell_width_offset;
+        width: @main_width;
+        padding-left: @gap;
+        >*{
+            width: @cellw;
+        }
+    }
 
-	.gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
-		@cellw:(@main_width - (@n)*@gap)/@n + @cell_width_offset;
-		width: @main_width + @gap;
+    .gen(@main_width,@gap,@n,@edge_gap) when(@edge_gap = false){
+        @cellw:(@main_width - (@n)*@gap)/@n + @cell_width_offset;
+        width: @main_width + @gap;
 
-		>*{
-			width: @cellw;
-		}
-	}
+        >*{
+            width: @cellw;
+        }
+    }
 
-	.gen_comm;
-	.gen(@main_width,@gap,@n,@edge_gap);
+    .gen_comm;
+    .gen(@main_width,@gap,@n,@edge_gap);
 
 }
 
@@ -584,26 +585,26 @@
 
 //对p一些常用的定义
 .p_define(){
-	text-indent: 2em;
-	p{
+    text-indent: 2em;
+    p{
 
-		&.b{ font-weight: 600;}
-		&.noti{ text-indent: 0;}
-		&.c{ text-align: center;}
-	}
+        &.b{ font-weight: 600;}
+        &.noti{ text-indent: 0;}
+        &.c{ text-align: center;}
+    }
 
-	&.noti{
-		text-indent: 0;
-	}
+    &.noti{
+        text-indent: 0;
+    }
 }
 
 
 //兼容性渐变
 .gradient(@dire; @starColor; @endColor){
-	@ie:"ie";
-	@moz_o:"";
-	@webkit:"";
-	@calc:`(function(me){
+    @ie:"ie";
+    @moz_o:"";
+    @webkit:"";
+    @calc:`(function(me){
 		var dire = '@{dire}';
 		var startColor = '@{starColor}'.replace(/\[|\]/g,"");
 		var endColor = '@{endColor}'.replace(/\[|\]/g,"");
@@ -651,43 +652,43 @@
 		changeValue(me,"webkit", '-webkit-gradient(linear, {webkit_dire} from({s_rgba}), to({e_rgba}))' .replace(rg, rep_val_func) );
 	})(this)`;
 
-	filter:         ~"@{ie}";
-	background:     ~"-moz-@{moz_o}";
-	background:     ~"-o-@{moz_o}" ;
-	background:     ~"@{webkit}";
+    filter:         ~"@{ie}";
+    background:     ~"-moz-@{moz_o}";
+    background:     ~"-o-@{moz_o}" ;
+    background:     ~"@{webkit}";
 }
 
 
 //文字阴影
 .tx_sd(@color:#333,@strength:2){
-	filter:glow(color=@color,strength=@strength);
-	.loop(@n) when(@n > 0 ){
-		.loop(@n - 1);
-		text-shadow+: @color 0 0 3px;
-	}
-	.loop(@strength);
+    filter:glow(color=@color,strength=@strength);
+    .loop(@n) when(@n > 0 ){
+        .loop(@n - 1);
+        text-shadow+: @color 0 0 3px;
+    }
+    .loop(@strength);
 }
 
 
 
 //半透明背景，兼容ie
 .bgcolor_alpha(@bgcolor: rgba(0,0,0,.51)){
-	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr = argb(@bgcolor), endColorstr=argb(@bgcolor));
-	background-color:@bgcolor;
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr = argb(@bgcolor), endColorstr=argb(@bgcolor));
+    background-color:@bgcolor;
 }
 
 .bgcolor_alpha(@rgb,@alpha){
-	@rgba:~`(function(){
+    @rgba:~`(function(){
 		var obj = __get_rgba_object('@{rgb}',@{alpha});
 		return getRGBA('@{rgb}',@{alpha});
 	})(this)`;
 
-	@argb_16:~`(function(){
+    @argb_16:~`(function(){
 		return getARGB('@{rgb}',@{alpha})
 	})(this)`;
 
-	filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= @argb_16, endColorstr=@argb_16);
-	background-color:@rgba;
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr= @argb_16, endColorstr=@argb_16);
+    background-color:@rgba;
 }
 
 
@@ -1096,21 +1097,31 @@
 @lightWhite: rgba(255, 255, 255, 0.54);
 
 
-.mdColorClass(){
-    @colors-list: red50,red100,red200,red300,red400,red500,red600,red700,red800,red900,redA100,redA200,redA400,redA700,red,pink50,pink100,pink200,pink300,pink400,pink500,pink600,pink700,pink800,pink900,pinkA100,pinkA200,pinkA400,pinkA700,pink,purple50,purple100,purple200,purple300,purple400,purple500,purple600,purple700,purple800,purple900,purpleA100,purpleA200,purpleA400,purpleA700,purple,deepPurple50,deepPurple100,deepPurple200,deepPurple300,deepPurple400,deepPurple500,deepPurple600,deepPurple700,deepPurple800,deepPurple900,deepPurpleA100,deepPurpleA200,deepPurpleA400,deepPurpleA700,deepPurple,indigo50,indigo100,indigo200,indigo300,indigo400,indigo500,indigo600,indigo700,indigo800,indigo900,indigoA100,indigoA200,indigoA400,indigoA700,indigo,blue50,blue100,blue200,blue300,blue400,blue500,blue600,blue700,blue800,blue900,blueA100,blueA200,blueA400,blueA700,blue,lightBlue50,lightBlue100,lightBlue200,lightBlue300,lightBlue400,lightBlue500,lightBlue600,lightBlue700,lightBlue800,lightBlue900,lightBlueA100,lightBlueA200,lightBlueA400,lightBlueA700,lightBlue,cyan50,cyan100,cyan200,cyan300,cyan400,cyan500,cyan600,cyan700,cyan800,cyan900,cyanA100,cyanA200,cyanA400,cyanA700,cyan,teal50,teal100,teal200,teal300,teal400,teal500,teal600,teal700,teal800,teal900,tealA100,tealA200,tealA400,tealA700,teal,green50,green100,green200,green300,green400,green500,green600,green700,green800,green900,greenA100,greenA200,greenA400,greenA700,green,lightGreen50,lightGreen100,lightGreen200,lightGreen300,lightGreen400,lightGreen500,lightGreen600,lightGreen700,lightGreen800,lightGreen900,lightGreenA100,lightGreenA200,lightGreenA400,lightGreenA700,lightGreen,lime50,lime100,lime200,lime300,lime400,lime500,lime600,lime700,lime800,lime900,limeA100,limeA200,limeA400,limeA700,lime,yellow50,yellow100,yellow200,yellow300,yellow400,yellow500,yellow600,yellow700,yellow800,yellow900,yellowA100,yellowA200,yellowA400,yellowA700,yellow,amber50,amber100,amber200,amber300,amber400,amber500,amber600,amber700,amber800,amber900,amberA100,amberA200,amberA400,amberA700,amber,orange50,orange100,orange200,orange300,orange400,orange500,orange600,orange700,orange800,orange900,orangeA100,orangeA200,orangeA400,orangeA700,orange,deepOrange50,deepOrange100,deepOrange200,deepOrange300,deepOrange400,deepOrange500,deepOrange600,deepOrange700,deepOrange800,deepOrange900,deepOrangeA100,deepOrangeA200,deepOrangeA400,deepOrangeA700,deepOrange,brown50,brown100,brown200,brown300,brown400,brown500,brown600,brown700,brown800,brown900,brown,blueGrey50,blueGrey100,blueGrey200,blueGrey300,blueGrey400,blueGrey500,blueGrey600,blueGrey700,blueGrey800,blueGrey900,blueGrey,grey50,grey100,grey200,grey300,grey400,grey500,grey600,grey700,grey800,grey900,grey,black,white,transparent,fullBlack,darkBlack,lightBlack,minBlack,faintBlack,fullWhite,darkWhite,lightWhite;
-    @leng:length(@colors-list);
+.loopColorList(@list){
+    @leng:length(@list);
     .loop(@n)when(@n>0){
-        @cl:extract(@colors-list,@n);
+        @cl:extract(@list,@n);
         @cl-val:@@cl;
         .cl-@{cl}{color:@@cl;}
+        .cl-@{cl}-{color:@@cl !important;}
         .bg-@{cl}{background-color:@@cl;}
+        .bg-@{cl}-{background-color:@@cl !important;}
         .loop(@n - 1);
     }
     .loop(@leng);
 }
 
 
-.shortcutClass{
+.mdColorClass(){
+    @colors-list: red50,red100,red200,red300,red400,red500,red600,red700,red800,red900,redA100,redA200,redA400,redA700,red,pink50,pink100,pink200,pink300,pink400,pink500,pink600,pink700,pink800,pink900,pinkA100,pinkA200,pinkA400,pinkA700,pink,purple50,purple100,purple200,purple300,purple400,purple500,purple600,purple700,purple800,purple900,purpleA100,purpleA200,purpleA400,purpleA700,purple,deepPurple50,deepPurple100,deepPurple200,deepPurple300,deepPurple400,deepPurple500,deepPurple600,deepPurple700,deepPurple800,deepPurple900,deepPurpleA100,deepPurpleA200,deepPurpleA400,deepPurpleA700,deepPurple,indigo50,indigo100,indigo200,indigo300,indigo400,indigo500,indigo600,indigo700,indigo800,indigo900,indigoA100,indigoA200,indigoA400,indigoA700,indigo,blue50,blue100,blue200,blue300,blue400,blue500,blue600,blue700,blue800,blue900,blueA100,blueA200,blueA400,blueA700,blue,lightBlue50,lightBlue100,lightBlue200,lightBlue300,lightBlue400,lightBlue500,lightBlue600,lightBlue700,lightBlue800,lightBlue900,lightBlueA100,lightBlueA200,lightBlueA400,lightBlueA700,lightBlue,cyan50,cyan100,cyan200,cyan300,cyan400,cyan500,cyan600,cyan700,cyan800,cyan900,cyanA100,cyanA200,cyanA400,cyanA700,cyan,teal50,teal100,teal200,teal300,teal400,teal500,teal600,teal700,teal800,teal900,tealA100,tealA200,tealA400,tealA700,teal,green50,green100,green200,green300,green400,green500,green600,green700,green800,green900,greenA100,greenA200,greenA400,greenA700,green,lightGreen50,lightGreen100,lightGreen200,lightGreen300,lightGreen400,lightGreen500,lightGreen600,lightGreen700,lightGreen800,lightGreen900,lightGreenA100,lightGreenA200,lightGreenA400,lightGreenA700,lightGreen,lime50,lime100,lime200,lime300,lime400,lime500,lime600,lime700,lime800,lime900,limeA100,limeA200,limeA400,limeA700,lime,yellow50,yellow100,yellow200,yellow300,yellow400,yellow500,yellow600,yellow700,yellow800,yellow900,yellowA100,yellowA200,yellowA400,yellowA700,yellow,amber50,amber100,amber200,amber300,amber400,amber500,amber600,amber700,amber800,amber900,amberA100,amberA200,amberA400,amberA700,amber,orange50,orange100,orange200,orange300,orange400,orange500,orange600,orange700,orange800,orange900,orangeA100,orangeA200,orangeA400,orangeA700,orange,deepOrange50,deepOrange100,deepOrange200,deepOrange300,deepOrange400,deepOrange500,deepOrange600,deepOrange700,deepOrange800,deepOrange900,deepOrangeA100,deepOrangeA200,deepOrangeA400,deepOrangeA700,deepOrange,brown50,brown100,brown200,brown300,brown400,brown500,brown600,brown700,brown800,brown900,brown,blueGrey50,blueGrey100,blueGrey200,blueGrey300,blueGrey400,blueGrey500,blueGrey600,blueGrey700,blueGrey800,blueGrey900,blueGrey,grey50,grey100,grey200,grey300,grey400,grey500,grey600,grey700,grey800,grey900,grey,black,white,transparent,fullBlack,darkBlack,lightBlack,minBlack,faintBlack,fullWhite,darkWhite,lightWhite;
+    .loopColorList(@colors-list);
+}
+
+
+
+
+.shortcutClass(){
+
     .size-font-big{font-size: 1.2em;}
     .size-font-small{font-size: 0.8em;}
     .size-icon-mid{  font-size: 2em;}
@@ -1121,11 +1132,28 @@
     .tl{  text-align: left;}
     .td{  text-indent:2em; }
 
-    .s-row{
+
+    .hgap05 {  height: 0.5em;}
+    .hgap1  {  height: 1em;}
+    .hgap2  {  height: 2em;}
+
+    .s-flex{
         display: flex;
         align-items: center;
         justify-content: flex-start;
         &.between{  justify-content: space-between;  }
+        &.around{  justify-content: space-around;  }
+        &.column{  flex-direction: column;  }
+    }
+
+    .of{
+        &.h{  overflow: hidden;  }
+        &.x{  overflow: hidden;  overflow-x: auto;  }
+        &.y{  overflow: hidden;  overflow-y: auto;  }
+    }
+
+    .h{
+        &.p100{  height: 100%;}
     }
 
     .fx1{  flex: 1;}
@@ -1158,4 +1186,3 @@
 
 //.mdColorClass;
 //.shortcutClass;
-
