@@ -583,20 +583,6 @@
 //ie上需要垂直居中时候，字体大小和容器高度的比率
 @ie7_vm_ratio:0.905;
 
-//对p一些常用的定义
-.p_define(){
-    text-indent: 2em;
-    p{
-
-        &.b{ font-weight: 600;}
-        &.noti{ text-indent: 0;}
-        &.c{ text-align: center;}
-    }
-
-    &.noti{
-        text-indent: 0;
-    }
-}
 
 
 //兼容性渐变
@@ -1121,29 +1107,35 @@
 
 
 .shortcutClass(){
-
     .size-font-big{font-size: 1.2em;}
     .size-font-small{font-size: 0.8em;}
     .size-icon-mid{  font-size: 2em;}
     .size-icon-small{  font-size: 1.4em;}
+    .fz1,.fz10 { font-size: 1em;}
 
     .tr{  text-align: right;}
     .tc{  text-align: center;}
     .tl{  text-align: left;}
     .td{  text-indent:2em; }
 
+    .h100p  {  height: 100%;}
+    .w100p  {  width: 100%;  }
+    .bbox   {  box-sizing:border-box;  }
 
-    .hgap05 {  height: 0.5em;}
-    .hgap1  {  height: 1em;}
-    .hgap2  {  height: 2em;}
+    .hgap1,.hgap  {  height: 1em;}
+    .vgap1,.vgap  {  display: inline-block;  width: 1em;}
 
-    .s-flex{
+    .s-flex,.flex{
         display: flex;
         align-items: center;
         justify-content: flex-start;
         &.between{  justify-content: space-between;  }
         &.around{  justify-content: space-around;  }
         &.column{  flex-direction: column;  }
+        &.align-right,&.right{  justify-content: flex-end;  }
+        &.left{  justify-content: flex-start;  }
+        &.center{  justify-content: center;  }
+        &.stretch{  align-items:stretch;  }
     }
 
     .of{
@@ -1156,7 +1148,90 @@
         &.p100{  height: 100%;}
     }
 
-    .fx1{  flex: 1;}
+    .fx1{ flex: 1;}
+
+    .wnw{  white-space: nowrap;  }
+    .hide{    display: none;  }
+
+
+
+    .toolkitGen(@gp, @value-list){
+        @n:length(@value-list);
+
+        //距离
+        .write(@key,@value) when(@gp = 1){
+            .ml@{key}{margin-left:@value;}
+            .mt@{key}{margin-top:@value;}
+            .mr@{key}{margin-right:@value;}
+            .mb@{key}{margin-bottom:@value;}
+            .pl@{key}{padding-left:@value;}
+            .pt@{key}{padding-top:@value;}
+            .pr@{key}{padding-right:@value;}
+            .pb@{key}{padding-bottom:@value;}
+        }
+
+        //大小
+        .write(@key,@value) when(@gp = 2){
+            .fz@{key}{font-size:@value;}
+            .w@{key}{width:@value;}
+            .h@{key}{height:@value;}
+            .hgap@{key}{  height:@value;}
+            .vgap@{key}{  width:@value;  display: inline-block; }
+            .scale@{key}{transform:scale(unit(@value))}
+        }
+
+        //百分比
+        .write(@key,@value) when(@gp = 100){
+            .w@{key}p{width:@value;}
+            .h@{key}p{height:@value;}
+            .l@{key}p{left:@value;}
+            .t@{key}p{top:@value;}
+            .r@{key}p{right:@value;}
+            .b@{key}p{bottom:@value;}
+        }
+
+        .loop(@n)when(@n>0){
+            @val:extract(@value-list,@n);
+
+
+            //小于1且非百分比数字
+            //乘以10,去掉小数点，前面加0
+            .tranKey(@number)when(@val <  1)  and not(ispercentage(@val)){
+                @valn:unit(@number * 10);
+                @valn2:replace(~"0@{valn}","\.","","g");
+                .write(@valn2,@val);
+            }
+            //大于1非百分比数字
+            //乘以10,小数点换为d
+            .tranKey(@number)when(@val >= 1) and not(ispercentage(@val)){
+                @valn:unit(@number * 10);
+                @valn2:replace(~"@{valn}","\.","d","g");
+                .write(@valn2,@val);
+            }
+
+
+            //百分比
+            .tranKey(@number)when(ispercentage(@val)){
+                @valn:unit(@number);
+                @valn2:replace(~"@{valn}","\.","d","g");
+                .write(@valn2,@val);
+            }
+
+            .tranKey(@val);
+            .loop(@n - 1);
+        }
+        .loop(@n)
+    }
+
+
+    //距离组   //.mt1.mb025
+    .toolkitGen(1, 0.125em 0.25em 0.5em 0.75em 1em 1.25em 1.5em 1.75em 2em 2.5em 3em 3.5em);
+
+    //大小 //.fz075 fz95 fz10d5 w08 w15 w17d5 .scale09
+    .toolkitGen(2, 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em 1.5em 1.75em 2em);
+
+    //百分比 .w100p.h33d33p.l33d33p.t100p
+    .toolkitGen(100,10% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
 }
 
 
