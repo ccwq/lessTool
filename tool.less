@@ -1188,6 +1188,10 @@
             .t@{key}p{top:@value;}
             .r@{key}p{right:@value;}
             .b@{key}p{bottom:@value;}
+            .pl@{key}p{padding-left:@value;}
+            .pt@{key}p{padding-top:@value;}
+            .pr@{key}p{padding-right:@value;}
+            .pb@{key}p{padding-bottom:@value;}
         }
 
         .loop(@n)when(@n>0){
@@ -1228,10 +1232,10 @@
     .toolkitGen(1, 0.125em 0.25em 0.5em 0.75em 1em 1.25em 1.5em 1.75em 2em 2.5em 3em 3.5em);
 
     //大小 //.fz075 fz95 fz10d5 w08 w15 w17d5 .scale09
-    .toolkitGen(2, 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em 1.5em 1.75em 2em);
+    .toolkitGen(2, 0.25em 0.5em 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em 1.5em 1.75em 2em);
 
-    //百分比 .w100p.h33d33p.l33d33p.t100p
-    .toolkitGen(100,10% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
+    //百分比 .w100p.h33d33p.l33d33p.t100p.pt16.66p
+    .toolkitGen(100,10% 12.5% 14.285% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
 }
 
 
