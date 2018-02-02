@@ -1142,6 +1142,8 @@
         &.h{  overflow: hidden;  }
         &.x{  overflow: hidden;  overflow-x: auto;  }
         &.y{  overflow: hidden;  overflow-y: auto;  }
+        &.ya{overflow-y: auto;}
+        &.xa{overflow-y: auto;}
     }
 
     .h{
@@ -1152,6 +1154,28 @@
 
     .wnw{  white-space: nowrap;  }
     .hide{    display: none;  }
+
+    .pa{  position: absolute;}
+    .pr{  position: relative;}
+    .ps{  position: static;}
+
+
+    .fw100{font-weight: 100;}
+    .fw100-i{font-weight: 100 !important;}
+    .fw200{font-weight: 200;}
+    .fw200-i{font-weight: 200 !important;}
+    .fw300{font-weight: 300;}
+    .fw300-i{font-weight: 300 !important;}
+    .fw400{font-weight: 400;}
+    .fw400-i{font-weight: 400 !important;}
+    .fw500{font-weight: 500;}
+    .fw500-i{font-weight: 500 !important;}
+    .fw600{font-weight: 600;}
+    .fw600-i{font-weight: 600 !important;}
+    .fw700{font-weight: 700;}
+    .fw700-i{font-weight: 700 !important;}
+    .fw-auto{font-weight: inherit;}
+    .fw700-auto-i{font-weight: inherit !important;}
 
 
 
@@ -1164,10 +1188,23 @@
             .mt@{key}{margin-top:@value;}
             .mr@{key}{margin-right:@value;}
             .mb@{key}{margin-bottom:@value;}
+            .m@{key}{margin:@value;}
             .pl@{key}{padding-left:@value;}
             .pt@{key}{padding-top:@value;}
             .pr@{key}{padding-right:@value;}
             .pb@{key}{padding-bottom:@value;}
+            .p@{key}{padding:@value;}
+
+            .ml@{key}-i{margin-left:@value !important;}
+            .mt@{key}-i{margin-top:@value !important;}
+            .mr@{key}-i{margin-right:@value !important;}
+            .mb@{key}-i{margin-bottom:@value !important;}
+            .m@{key}-i{margin:@value !important;}
+            .pl@{key}-i{padding-left:@value !important;}
+            .pt@{key}-i{padding-top:@value !important;}
+            .pr@{key}-i{padding-right:@value !important;}
+            .pb@{key}-i{padding-bottom:@value !important;}
+            .p@{key}-i{padding:@value !important;}
         }
 
         //大小
@@ -1175,10 +1212,31 @@
             .fz@{key}{font-size:@value;}
             .w@{key}{width:@value;}
             .h@{key}{height:@value;}
+            .ti@{key}{text-indent:@value;}
             .hgap@{key}{  height:@value;}
             .vgap@{key}{  width:@value;  display: inline-block; }
+
+
+            .fz@{key}-i{font-size:@value !important;}
+            .w@{key}-i{width:@value !important;}
+            .h@{key}-i{height:@value !important;}
+            .ti@{key}-i{text-indent:@value !important;}
+            .hgap@{key}-i{  height:@value !important;}
+            .vgap@{key}-i{  width:@value !important;  display: inline-block; }
+        }
+
+        //透明
+        .write(@key,@value) when(@gp = 3){
+            .op@{key}{opacity:@value}
+            .op@{key}-i{opacity:@value  !important}
+        }
+
+
+        //缩放
+        .write(@key,@value) when(@gp = 4){
             .scale@{key}{transform:scale(unit(@value))}
         }
+
 
         //百分比
         .write(@key,@value) when(@gp = 100){
@@ -1197,7 +1255,6 @@
         .loop(@n)when(@n>0){
             @val:extract(@value-list,@n);
 
-
             //小于1且非百分比数字
             //乘以10,去掉小数点，前面加0
             .tranKey(@number)when(@val <  1)  and not(ispercentage(@val)){
@@ -1212,7 +1269,6 @@
                 @valn2:replace(~"@{valn}","\.","d","g");
                 .write(@valn2,@val);
             }
-
 
             //百分比
             .tranKey(@number)when(ispercentage(@val)){
@@ -1229,13 +1285,24 @@
 
 
     //距离组   //.mt1.mb025
-    .toolkitGen(1, 0.125em 0.25em 0.5em 0.75em 1em 1.25em 1.5em 1.75em 2em 2.5em 3em 3.5em);
+    .toolkitGen(1,0em 0.125em 0.25em 0.5em 0.75em 1em 1.25em 1.5em 1.75em 2em 2.5em 3em 3.5em);
 
     //大小 //.fz075 fz95 fz10d5 w08 w15 w17d5 .scale09
-    .toolkitGen(2, 0.25em 0.5em 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em 1.5em 1.75em 2em);
+    .toolkitGen(2, 0.25em 0.5em 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em  1.25em 1.3em 1.35em 1.4em 1.5em 1.6em 1.7em 1.75em 1.8em 2em 2.1em 2.25em 2.4em 2.5em 2.7em 3em);
+
+    //透明
+    .toolkitGen(3,0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1);
+
+    //缩放
+    .toolkitGen(4,0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.75 1 1.05 1.1 1.15 1.2 1.25 1.3 1.4 1.5 1.75 1.8 2 2.4 2.7 3 3.3 3.6 4.5);
 
     //百分比 .w100p.h33d33p.l33d33p.t100p.pt16.66p
-    .toolkitGen(100,10% 12.5% 14.285% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
+    .toolkitGen(100,0% 10% 12.5% 14.285% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
+
+
+
+
+
 }
 
 
@@ -1265,3 +1332,6 @@
 
 //.mdColorClass;
 //.shortcutClass;
+
+
+
