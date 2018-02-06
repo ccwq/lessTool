@@ -1107,76 +1107,69 @@
 
 
 .shortcutClass(){
-    .size-font-big{font-size: 1.2em;}
-    .size-font-small{font-size: 0.8em;}
-    .size-icon-mid{  font-size: 2em;}
-    .size-icon-small{  font-size: 1.4em;}
-    .fz1,.fz10 { font-size: 1em;}
-
     .tr{  text-align: right;}
     .tc{  text-align: center;}
     .tl{  text-align: left;}
-    .td{  text-indent:2em; }
-
-    .h100p  {  height: 100%;}
-    .w100p  {  width: 100%;  }
-    .bbox   {  box-sizing:border-box;  }
-
-    .hgap1,.hgap  {  height: 1em;}
-    .vgap1,.vgap  {  display: inline-block;  width: 1em;}
-
-    .s-flex,.flex{
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        &.between{  justify-content: space-between;  }
-        &.around{  justify-content: space-around;  }
-        &.column{  flex-direction: column;  }
-        &.align-right,&.right{  justify-content: flex-end;  }
-        &.left{  justify-content: flex-start;  }
-        &.center{  justify-content: center;  }
-        &.stretch{  align-items:stretch;  }
-    }
-
-    .of{
-        &.h{  overflow: hidden;  }
-        &.x{  overflow: hidden;  overflow-x: auto;  }
-        &.y{  overflow: hidden;  overflow-y: auto;  }
-        &.ya{overflow-y: auto;}
-        &.xa{overflow-y: auto;}
-    }
-
-    .h{
-        &.p100{  height: 100%;}
-    }
-
-    .fx1{ flex: 1;}
-
-    .wnw{  white-space: nowrap;  }
-    .hide{    display: none;  }
 
     .pa{  position: absolute;}
     .pr{  position: relative;}
     .ps{  position: static;}
 
+    .bbox   {  box-sizing:  border-box;  }
+    .cbox   {  box-sizing: content-box}
 
-    .fw100{font-weight: 100;}
-    .fw100-i{font-weight: 100 !important;}
-    .fw200{font-weight: 200;}
-    .fw200-i{font-weight: 200 !important;}
-    .fw300{font-weight: 300;}
-    .fw300-i{font-weight: 300 !important;}
-    .fw400{font-weight: 400;}
-    .fw400-i{font-weight: 400 !important;}
-    .fw500{font-weight: 500;}
-    .fw500-i{font-weight: 500 !important;}
-    .fw600{font-weight: 600;}
-    .fw600-i{font-weight: 600 !important;}
-    .fw700{font-weight: 700;}
-    .fw700-i{font-weight: 700 !important;}
+    .wnw        {  white-space: nowrap;  }
+    .hide       {  display: none;  }
+
+    .s-flex,.flex{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        &.column{  flex-direction: column;  }
+
+        &.ai-start      {align-items: flex-start};
+        &.ai-center     {align-items: center;}
+        &.ai-end        {align-items: flex-end;}
+        &.ai-stretch    {align-items: stretch;}
+
+        &.jc-start      {justify-content: flex-start; }
+        &.jc-center     {justify-content: center;}
+        &.jc-end        {justify-content: flex-end;}
+
+        &.jc-between,
+        &.between       {justify-content: space-between;  }
+
+        &.jc-around,
+        &.around        {justify-content: space-around;  }
+    }
+
+    .fx1{ flex: 1;}
+
+
+    .of{
+        &.h     {overflow: hidden;}
+        &.ya    {overflow-y: auto;}
+        &.xa    {overflow-x: auto;}
+    }
+
+    .h1px{height:    1px;}
+    .w1px{width:     1px;}
+
+    //.fw100.fw500-i.fw-auto
+    .fwGen(){
+        @list:100 200 300 400 500 600 700;
+        @leng:length(@list);
+        .loop(@n)when(@n > 0){
+            @value:extract(@list,@n);
+            .fw@{value}{font-weight: @value;}
+            .fw@{value}-i{font-weight: @value !important;}
+            .loop(@n - 1);
+        }
+        .loop(@leng);
+    }; .fwGen();
     .fw-auto{font-weight: inherit;}
     .fw700-auto-i{font-weight: inherit !important;}
-
 
 
     .toolkitGen(@gp, @value-list){
@@ -1290,18 +1283,14 @@
     //大小 //.fz075 fz95 fz10d5 w08 w15 w17d5 .scale09
     .toolkitGen(2, 0.25em 0.5em 0.75em 0.8em 0.85em 0.9em 0.95em 1em 1.05em 1.1em 1.15em 1.2em  1.25em 1.3em 1.35em 1.4em 1.5em 1.6em 1.7em 1.75em 1.8em 2em 2.1em 2.25em 2.4em 2.5em 2.7em 3em);
 
-    //透明
+    //透明 .op01.op05.op10
     .toolkitGen(3,0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1);
 
-    //缩放
+    //缩放 .scale01.scale10
     .toolkitGen(4,0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.85 0.9 0.75 1 1.05 1.1 1.15 1.2 1.25 1.3 1.4 1.5 1.75 1.8 2 2.4 2.7 3 3.3 3.6 4.5);
 
-    //百分比 .w100p.h33d33p.l33d33p.t100p.pt16.66p
+    //百分比 .w100p.h33d33p.l33d33p.t100p.pt16d66p
     .toolkitGen(100,0% 10% 12.5% 14.285% 16.66% 20% 25% 33.33% 50% 66.66% 75% 100%);
-
-
-
-
 
 }
 
