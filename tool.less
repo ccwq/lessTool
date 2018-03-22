@@ -1089,9 +1089,15 @@
         @cl:extract(@list,@n);
         @cl-val:@@cl;
         .cl-@{cl}{color:@@cl;}
-        .cl-@{cl}-{color:@@cl !important;}
+        .cl-@{cl}-hover:hover{color:@@cl;}
+        .cl-@{cl}-i{color:@@cl !important;}
+        .cl-@{cl}-i-hover:hover{color:@@cl !important;}
         .bg-@{cl}{background-color:@@cl;}
-        .bg-@{cl}-{background-color:@@cl !important;}
+        .bg-@{cl}-hover:hover{background-color:@@cl;}
+        .bg-@{cl}-i{background-color:@@cl !important;}
+        .bg-@{cl}-i-hover:hover{background-color:@@cl !important;}
+        .bd-@{cl}{border-color:@@cl;}
+        .bd-@{cl}-i{border-color:@@cl !important;}
         .loop(@n - 1);
     }
     .loop(@leng);
