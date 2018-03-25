@@ -1310,32 +1310,27 @@
 //}
 //.table-1第一列宽度18em,第二列15px,第三列自动...
 .tableColSet(@rest...){
-    .output(@n,@value)when(isnumber(@value)) and (@value>0){
-        &:nth-child(@{n}){
-            width:@value;
+    .loop(@n) when (@n>0){
+        >tr>*{
+            @value:extract(@widthList,@n);
+            @leng:length(@value);
+            @width:extract(@value,1);
+            @align:extract(@value,2);
+            &:nth-child(@{n}){
+                & when (@leng=1){
+                    width:@width;
+                }
+
+                & when (@leng=2) and (@width>=0){
+                    width: @width;
+                    text-align: @align;
+                }
+
+                & when (@leng=2) and (@width<0){
+                    text-align: @align;
+                }
+            }
         }
-    }
-
-
-    .output(@n,@value)when not(isnumber(@value)){
-        @width:extract(@value,1);
-        @align:extract(@value,2);
-
-        &:nth-child(@{n}) when(@width<0){
-            text-align:@align;
-        }
-
-        &:nth-child(@{n}) when(@width>=0){
-            text-align:@align;
-            width:@width;
-        }
-    }
-
-
-
-
-    .loop(@n)when(@n>0){
-        >tr>*{  .output(@n,extract(@widthList,@n));  }
         .loop(@n - 1);
     }
 
