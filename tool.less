@@ -1158,23 +1158,42 @@
         align-items: center;
         justify-content: flex-start;
 
-        &.column{  flex-direction: column;  }
-
-        &.ai-start      {align-items        : flex-start};
-        &.ai-center     {align-items        : center;}
-        &.ai-end        {align-items        : flex-end;}
-        &.ai-stretch    {align-items        : stretch;}
-
-        &.jc-start      {justify-content    : flex-start; }
-        &.jc-center     {justify-content    : center;}
-        &.jc-end        {justify-content    : flex-end;}
-
-        &.jc-between,
+        &.column{       flex-direction      : column;  }
+        
+        &.jc{
+            &-start     {justify-content    : flex-start; }
+            &-center    {justify-content    : center;}
+            &-end       {justify-content    : flex-end;}
+            &-between   {justify-content    : space-between;  }
+            &-around    {justify-content    : space-around;  }
+        }
         &.between       {justify-content    : space-between;  }
-
-        &.jc-around,
         &.around        {justify-content    : space-around;  }
+
+        &.ai{
+            &-start      {align-items        : flex-start};
+            &-center     {align-items        : center;}
+            &-end        {align-items        : flex-end;}
+            &-stretch    {align-items        : stretch;}
+        }
+
+        >.as{
+            &-start{align-self      : flex-start;}
+            &-center{align-self     : center;}
+            &-end{align-self        : flex-end;}
+            &-stretch{align-self    : stretch;}
+        }
+
+        &.ac{
+            &-start     {align-content      : flex-start;}
+            &-center    {align-content      : center;}
+            &-end       {align-content      : flex-end;}
+            &-between   {align-content      : space-between;}
+            &-around    {align-content      : space-around;}
+            &-stretch   {align-content      : stretch;}
+        }
     }
+
 
     .fx1{ flex: 1;}
 
