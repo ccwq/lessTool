@@ -1375,7 +1375,7 @@
 //规定表格个列的宽度和对齐方式,自动宽度传入-1
 //ex: 0/auto 表示不干涉该列宽度
 //.table-1{
-//     .tableColSet(18em right, 15px, 0, 0, 10%);
+//     .tableColSet(18em right 5em 2em, 15px, 0, 0, 10%);
 //}
 //.table-1第一列宽度18em,第二列15px,第三列自动...
 .tableColSet(@rest...){
@@ -1385,18 +1385,24 @@
             @leng:length(@value);
             @width:extract(@value,1);
             @align:extract(@value,2);
+            @paddingLeft:extract(@value,3);
+            @paddingRight:extract(@value,4);
             &:nth-child(@{n}){
-                & when (@leng=1){
-                    width:@width;
-                }
 
-                & when (@leng=2) and (@width>=0){
+                & when(@width>0){
                     width: @width;
-                    text-align: @align;
                 }
 
-                & when (@leng=2) and (@width<0){
-                    text-align: @align;
+                & when(iskeyword(@align)){
+                    text-align:@align;
+                }
+
+                & when(isnumber(@paddingLeft)){
+                    padding-left:@paddingLeft;
+                }
+
+                & when(isnumber(@paddingRight)){
+                    padding-right:@paddingRight;
                 }
             }
         }
@@ -1408,6 +1414,7 @@
     @le:length(@widthList);
     .loop(@le);
 }
+
 
 
 
